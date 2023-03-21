@@ -1,10 +1,4 @@
-# readme
-jotain
-## aliotsikko
-`koodia`
-## aliotsikko
-`koodia lissee`
-### huomio
-lässynlää
-# loppusilaus
-nönnönnöö
+# Ohjelmistotekniikka, harjoitustyö
+
+[gitlog.txt](https://github.com/MiikaMatias/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+[komentorivi.txt](https://github.com/MiikaMatias/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
