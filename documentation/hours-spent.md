@@ -2,4 +2,4 @@
 | :----:|:-----| :-----|
 | 27.3. | 2    | general ideation, brainstorming |
 | 28.3. | 3    | writing documentation, fleshing out idea|
-|yht|5||
+|total|5||
