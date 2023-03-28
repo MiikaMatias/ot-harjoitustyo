@@ -39,6 +39,6 @@ class Kassapaate:
     def lataa_rahaa_kortille(self, kortti, summa):
         if summa >= 0:
             kortti.lataa_rahaa(summa)
-            self.kassassa_rahaa += summa
+            self.kassassa_rahaa -= summa
         else:
             return
