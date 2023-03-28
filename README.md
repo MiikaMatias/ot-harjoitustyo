@@ -9,6 +9,6 @@
 
 ### Viikko 2
 
-[definition document]()
+[definition document](https://github.com/MiikaMatias/ot-harjoitustyo/blob/main/documentation/definition.md)
 
-[hours spent]()
+[hours spent](https://github.com/MiikaMatias/ot-harjoitustyo/blob/main/documentation/hours-spent.md)
