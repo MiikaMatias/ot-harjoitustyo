@@ -1,6 +1,7 @@
 ---
 title: Animal example
 ---
+```
 classDiagram
     note "From Duck till Zebra"
     Animal <|-- Duck
@@ -24,3 +25,4 @@ classDiagram
         +bool is_wild
         +run()
     }
+```
