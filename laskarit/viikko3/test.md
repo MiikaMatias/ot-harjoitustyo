@@ -11,9 +11,7 @@ Sovelluksen loogisen tietomallin muodostavat luokat User ja Todo, jotka kuvaavat
           id
       }
       class Pelilauta{
-
       }
       class Ruutu{
-
-           }
+      }
 ```
