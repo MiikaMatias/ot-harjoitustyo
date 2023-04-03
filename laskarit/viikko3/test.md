@@ -1,4 +1,4 @@
-## Sovelluslogiikka
+---
 title: Animal example
 ---
 classDiagram
@@ -24,4 +24,3 @@ classDiagram
         +bool is_wild
         +run()
     }
----
