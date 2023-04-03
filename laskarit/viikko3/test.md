@@ -4,7 +4,7 @@ Sovelluksen loogisen tietomallin muodostavat luokat User ja Todo, jotka kuvaavat
 
 ```mermaid
  classDiagram
-      Pelaaja "2..8" -- "1" Peli
+      Pelaaja "2..8" --> "1" Peli
       class Noppa{
       }
       class Pelaaja{
