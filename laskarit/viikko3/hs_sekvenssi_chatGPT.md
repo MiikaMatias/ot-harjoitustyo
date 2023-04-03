@@ -2,7 +2,7 @@
 Uteliaisuuttani laitoin chatGPT:n tekemään tehtävän. Sinäänsä ikävää koska luulisi että tällaisen tehtävän delegoiminen kielimallille olisi juuri noiden osaamisalueen keskiössä, mutta veikkaan että tarvitaan aikamoista kikkailua että saadaan se tuottamaan oikeanlainen kaavio. 
 
 """
-[ code ]
+[ koodi ]
 
 Teemme sekvenssikaavion mermaid kielellä md tiedostoon. Kirjoita kaavio näiden ohjeiden mukaan:
 
