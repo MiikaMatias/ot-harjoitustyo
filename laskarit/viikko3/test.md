@@ -7,6 +7,7 @@ Sovelluksen loogisen tietomallin muodostavat luokat User ja Todo, jotka kuvaavat
       Ruutu ..> Pelilauta
       Noppa ..> Pelaaja
       Pelinappula ..> Pelaaja
+      Pelaaja ..> Peli
       class Noppa{
       }
       class Pelaaja{
@@ -17,5 +18,7 @@ Sovelluksen loogisen tietomallin muodostavat luokat User ja Todo, jotka kuvaavat
       class Ruutu{
       }
       class Pelinappula {
+      }
+      class Peli {
       }
 ```
