@@ -1,5 +1,5 @@
 ## Chatgpt test
-I tried, out of curiosity, to prompt chatGPT to do this assignment. It spat our the following with the prompt:
+Uteliaisuuttani laitoin chatGPT:n tekemään tehtävän. Sinäänsä ikävää koska luulisi että tällaisen tehtävän delegoiminen kielimallille olisi juuri noiden osaamisalueen keskiössä, mutta veikkaan että tarvitaan aikamoista kikkailua että saadaan se tuottamaan oikeanlainen kaavio. 
 
 """
 [ code ]
