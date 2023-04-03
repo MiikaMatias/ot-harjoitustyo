@@ -5,8 +5,8 @@ Sovelluksen loogisen tietomallin muodostavat luokat User ja Todo, jotka kuvaavat
 ```mermaid
  classDiagram
       Ruutu ..> Pelilauta
-      Pelaaja ..> Noppa
-      Pelaaja ..> Pelinappula
+      Noppa ..> Pelaaja
+      Pelinappula ..> Pelaaja
       class Noppa{
       }
       class Pelaaja{
