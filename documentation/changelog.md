@@ -1,4 +1,4 @@
-## Viikko 3
+## Week 3
 
 - Main script created, runs a gameplay loop that renders an useless button
 - The foundational logic for the game of life system has been made in logic/gameboard.py
