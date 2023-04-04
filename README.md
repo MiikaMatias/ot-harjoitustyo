@@ -12,7 +12,7 @@ Use python 3.8.
 [Changelog](./documentation/changelog.md)
 
 
-[Time spent on the project](./hours-spent/changelog.md)
+[Time spent on the project](./documentation/hours-spent.md)
 
 
 ## Installation
