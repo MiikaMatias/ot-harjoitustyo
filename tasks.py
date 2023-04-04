@@ -2,6 +2,7 @@ from invoke import task
 
 @task
 def start(ctx):
+    ctx.run("poetry run invoke test")
     ctx.run("python3 src/main.py", pty=True)
 
 @task
