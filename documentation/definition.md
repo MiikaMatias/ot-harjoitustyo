@@ -12,7 +12,7 @@ There is really just a singular user role, which is a generic _player_ role. Fur
 
 There are three or four initially planned UI-states:
 
-![]([./documentation/images/outline.png](https://github.com/MiikaMatias/ot-harjoitustyo/blob/main/documentation/images/outline.png))
+![](https://github.com/MiikaMatias/ot-harjoitustyo/blob/main/documentation/images/outline.png)
 
 1) Menu; connects to main game through game rule configuration screen; connects to options
 2) Game screen | rule configuration screen; game rules can be modified in rule config. Different configurations can be saved into a database; rule config connects to the main game and maybe settings; game connects to settings and the menu through a game-over event.
