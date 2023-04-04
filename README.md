@@ -6,9 +6,9 @@
 
 
 ## Documentation
-(Definition document)[/documentation/definition.md]
-(Changelog)[./documentation/changelog.md]
-(Time spent on the project)[/hours-spent/changelog.md]
+[Definition document](./documentation/definition.md)
+[Changelog](./documentation/changelog.md)
+[Time spent on the project](./hours-spent/changelog.md)
 
 
 ## Installation
