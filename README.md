@@ -1,14 +1,19 @@
-# Ohjelmistotekniikan harjoitustyö
+# Game of life: Multiplayer
 
-## Tehtävät
 
-### Viikko 1
-[gitlog.txt](https://github.com/MiikaMatias/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
-[komentorivi.txt](https://github.com/MiikaMatias/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+## Python version 
 
-### Viikko 2
 
-[definition document](https://github.com/MiikaMatias/ot-harjoitustyo/blob/main/documentation/definition.md)
+## Documentation
+(Definition document)[/documentation/definition.md]
+(Changelog)[./documentation/changelog.md]
+(Time spent on the project)[/hours-spent/changelog.md]
 
-[hours spent](https://github.com/MiikaMatias/ot-harjoitustyo/blob/main/documentation/hours-spent.md)
+
+## Installation
+
+1. Install the dependencies:
+`poetry install`
+2. Run the project
+`poetry run invoke start`
