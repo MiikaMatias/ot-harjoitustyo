@@ -55,14 +55,14 @@ class GameOfLife():
         x_coord,y_coord = (x_coord-1),(y_coord-1)
 
         # this is what we return
-        # friends is -1 because we always count
-        # our own cell
         ones = 0
         twos = 0
 
-        if self.gameboard[y_coord,x_coord] in [1,2]:
+        if self.gameboard[y_coord, x_coord] == 1:
             ones -= 1
-        
+        if self.gameboard[y_coord, x_coord] == 2:
+            twos -= 1
+
         # do the thang.... 
         if x_coord == 0:
             if y_coord == 0:
@@ -107,7 +107,7 @@ class GameOfLife():
                         elif look_at == 1:
                             ones += 1
             else:
-                for y in [y-1,y,y+1]:
+                for y in [y_coord-1,y_coord,y_coord+1]:
                     for x in [self.width-2,self.width-1]:
                         look_at = self.gameboard[y,x]
                         if look_at == 2:
@@ -147,10 +147,10 @@ class GameOfLife():
         Runs through the whole board and creates the next turn into next_turn_state. 
         Then replaces the current boardstate with that. 
         """
-        for x in range(self.width):
-            for y in range(self.height):
+        for x in range(0,self.width):
+            for y in range(0,self.height):
                 current = self.gameboard[y,x]
-                ones,twos = self.cells_in_radius(x,y)
+                ones,twos = self.cells_in_radius(x+1,y+1)
                 if current == 1:
                     if ones >= 4:
                         self.next_turn_state[y,x] = 0
@@ -162,6 +162,9 @@ class GameOfLife():
                     if ones == 3:
                         self.next_turn_state[y,x] = 1
         self.gameboard = self.next_turn_state
+
+        # we reset the next turn state    
+        self.next_turn_state = np.array([np.array([0 for _ in range(self.width)]) for _ in range(self.height)])
 
     def __repr__(self):
         return str(self.gameboard)
