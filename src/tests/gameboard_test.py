@@ -130,7 +130,7 @@ class TestGameboard(unittest.TestCase):
         self.assertEqual((1,0),largeboard.cells_in_radius(9,2))
         self.assertEqual((1,0),largeboard.cells_in_radius(2,9))
 
-    def test_flyby(self):
+    def test_flyby_ones(self):
         self.gameboard.set_cell(2,2,1)
         self.gameboard.set_cell(3,3,1)
         self.gameboard.set_cell(3,2,1)
@@ -169,6 +169,55 @@ class TestGameboard(unittest.TestCase):
                       [0,0,0,0],
                       [0,0,1,0],
                       [0,0,1,0]])
+        self.assertEqual(True,np.array_equal(self.gameboard.gameboard, b))
+
+        #encore
+        self.gameboard.flyby()
+        b = np.array([[0,0,0,0],
+                      [0,0,0,0],
+                      [0,0,0,0],
+                      [0,0,0,0]])
+        self.assertEqual(True,np.array_equal(self.gameboard.gameboard, b))
+
+    def test_flyby_twos(self):
+        self.gameboard.set_cell(2,2,2)
+        self.gameboard.set_cell(3,3,2)
+        self.gameboard.set_cell(3,2,2)
+        self.gameboard.set_cell(4,4,2)
+        a = np.array([[0,0,0,0],
+                      [0,2,2,0],     #visual aid
+                      [0,0,2,0],
+                      [0,0,0,2]])
+       # this is the next state we want
+        self.gameboard.flyby()
+        b = np.array([[0,0,0,0],
+                      [0,2,2,0],
+                      [0,2,2,2],
+                      [0,0,0,0]])
+        self.assertEqual(True,np.array_equal(self.gameboard.gameboard, b))
+
+        #encore
+        self.gameboard.flyby()
+        b = np.array([[0,0,0,0],
+                      [0,2,0,2],
+                      [0,2,0,2],
+                      [0,0,2,0]])
+        self.assertEqual(True,np.array_equal(self.gameboard.gameboard, b))
+
+        #encore
+        self.gameboard.flyby()
+        b = np.array([[0,0,0,0],
+                      [0,0,0,0],
+                      [0,2,0,2],
+                      [0,0,2,0]])
+        self.assertEqual(True,np.array_equal(self.gameboard.gameboard, b))
+
+        #encore
+        self.gameboard.flyby()
+        b = np.array([[0,0,0,0],
+                      [0,0,0,0],
+                      [0,0,2,0],
+                      [0,0,2,0]])
         self.assertEqual(True,np.array_equal(self.gameboard.gameboard, b))
 
         #encore

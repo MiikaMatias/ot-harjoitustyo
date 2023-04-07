@@ -145,7 +145,7 @@ class GameOfLife():
     def flyby(self):
         """
         Runs through the whole board and creates the next turn into next_turn_state. 
-        Then replaces the current boardstate with that. 
+        Then replaces the current boardstate with that, and resets the next_turn_state. 
         """
         for x in range(0,self.width):
             for y in range(0,self.height):
@@ -158,9 +158,19 @@ class GameOfLife():
                         self.next_turn_state[y,x] = 0
                     else:
                         self.next_turn_state[y,x] = 1
+                elif current == 2:
+                    if twos >= 4:
+                        self.next_turn_state[y,x] = 0
+                    elif twos <= 1:
+                        self.next_turn_state[y,x] = 0
+                    else:
+                        self.next_turn_state[y,x] = 2
                 else:
                     if ones == 3:
                         self.next_turn_state[y,x] = 1
+                    elif twos == 3:
+                        self.next_turn_state[y,x] = 2
+                
         self.gameboard = self.next_turn_state
 
         # we reset the next turn state    
@@ -178,8 +188,12 @@ if __name__ == '__main__':
     gol.set_cell(3,4,1)
     gol.set_cell(3,3,1)
     gol.set_cell(3,2,1)
+    gol.set_cell(12,9,2)
+    gol.set_cell(11,9,2)
+    gol.set_cell(10,9,2)
+    gol.set_cell(10,10,2)
+    gol.set_cell(11,11,2)
 
-
-    for _ in range(10):
+    for _ in range(20):
         print(gol)
         gol.flyby()
