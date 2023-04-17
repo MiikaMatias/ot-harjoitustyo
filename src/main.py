@@ -17,8 +17,11 @@ import sys
 
 import pygame as pg
 from gui.display import Display
-from gui.image import Image
+from gameobjects.menu.button import Button
 from logic.gameboard import GameOfLife
+from pygame.locals import *
+# pylint: disable=undefined-variable
+
 
  # this suggestion is weird
  # pylint: disable=no-member
@@ -31,7 +34,6 @@ def main():
     Main loop
     """
     pg.init()
-
     running = True
 
     # We set up a display initially
@@ -50,6 +52,49 @@ def main():
     screen = Display(800, 600)
     surface = screen.get_surface()
 
+    # we set up screens here, explained further below
+    menu = []                                  # pylint: disable=unused-variable
+    settings = []                              # pylint: disable=unused-variable
+    pre_game = []                              # pylint: disable=unused-variable
+    game = []                                  # pylint: disable=unused-variable
+    active_scene = menu
+
+    # Game Objects!
+    # Here we define every game object we may use
+    # --------------------------------------------------------
+
+    menu_play_button = Button(surface, 0.5, 0.30, 0.45, 0.45,
+                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-green_L_btn.png",
+                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-blue_L_btn.png",
+                   lambda: "pregame")
+
+    menu_options_button = Button(surface, 0.5, 0.45, 0.35, 0.35,
+                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-green_L_btn.png",
+                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-blue_L_btn.png",
+                   lambda: "settings")
+
+    menu_quit_button = Button(surface, 0.5, 0.58, 0.35, 0.35,
+                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-green_L_btn.png",
+                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-blue_L_btn.png",
+                   lambda: "quit")
+
+
+    settings_menu_button = Button(surface, 0.5, 0.20, 0.45, 0.45,
+                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-green_L_btn.png",
+                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-blue_L_btn.png",
+                   lambda: "menu")
+
+
+    pregame_menu_button = Button(surface, 0.1, 0.90, 0.25, 0.25,
+                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-green_L_btn.png",
+                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-blue_L_btn.png",
+                   lambda: "menu")
+
+    pregame_game_button = Button(surface, 0.8, 0.1, 0.6, 0.6,
+                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-green_L_btn.png",
+                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-blue_L_btn.png",
+                   lambda: "game")
+
     # Screens!
     # --------------------------------------------------------
     # The way this project works with changing screens is done through an
@@ -62,44 +107,85 @@ def main():
     #
     # We've now transferred state! No idea if this implementation is good or not but we'll see
 
-    menu = []       # pylint: disable=unused-variable
-    settings = []   # pylint: disable=unused-variable
-    pre_game = []   # pylint: disable=unused-variable
-    game = []       # pylint: disable=unused-variable
-
+    menu = [menu_play_button, menu_options_button, menu_quit_button]                                   # pylint: disable=unused-variable
+    settings = [settings_menu_button]                                                                  # pylint: disable=unused-variable
+    pre_game = [pregame_menu_button, pregame_game_button]                                                                   # pylint: disable=unused-variable
+    game = []                                                                                          # pylint: disable=unused-variable
+    active_scene = menu
     # --------------------------------------------------------
 
     # Gameboard !
+    # --------------------------------------------------------
     # This guy holds all of the game logic within in. For more information check the
     # logic module from /src/logic.
 
-    gameboard = GameOfLife(5,5)  # pylint: disable=unused-variable
+    gameboard = GameOfLife(6,6)  # pylint: disable=unused-variable
 
     # --------------------------------------------------------
 
-    button = Image(surface, 1, 1, 1.1, 0.8,
-                   "src/assets/menu_items/main_menu/Talon_buttons/PlayButton.png")
+    # Game loop!
+    # --------------------------------------------------------
+    # This is the main gameplay loop
+    # Each line of this code is ran for every frame
+    # A lot of the underlying complexity of the implementation
+    # is hidden behind custom functions such as resize()
 
-    # each cycle of this function is known as a frame
     while running:
+        screen.get_surface().fill((0,0,0))
+        # first we run common, essential functions for
+        # all images, such as draw
+        for image in active_scene:
+            image.draw()     
 
-        # sample rectangle
-        button.draw(0.5, 0.3)
-
+        # then we check for events
         for event in pg.event.get():
-
-            # These conditionals handle exit
             if event.type == pg.QUIT:
                 running = False
-            if event.type == pg.KEYDOWN:
+            elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
-                    # probably modified in the future
-                    # to trigger menu instead
                     running = False
+            elif event.type == pg.VIDEORESIZE:
+                for image in active_scene:
+                    image.resize(event.dict['size'][0], event.dict['size'][1])        
+            elif event.type == pg.MOUSEBUTTONUP:
+                for image in active_scene:
+                    if isinstance(image,Button):
+                        if image.check_hover():
+                            activation = image.activate()
+                            if activation == "pregame":
+                                active_scene = pre_game
+                            elif activation == "quit":
+                                running = False
+                            elif activation == "settings":
+                                active_scene = settings
+                            elif activation == "menu":
+                                active_scene = menu
+                            elif activation == "game":
+                                active_scene = game
+                            for image in active_scene:
+                                image.resize(screen.get_surface().get_width(),
+                                             screen.get_surface().get_height())
+                            print(active_scene)
 
-        # update display
-        pg.display.flip()
+        # and lastly we check for special cases in respect
+        # to the current active scene
+        if active_scene == menu:
+            menu_play_button.check_hover()
+            menu_options_button.check_hover()
+            menu_quit_button.check_hover()
+        elif active_scene == settings:
+            settings_menu_button.check_hover()
+        elif active_scene == pre_game:
+            pregame_menu_button.check_hover()
+            pregame_game_button.check_hover()
+        elif active_scene == game: 
+            pass
 
+        pg.display.update()
+
+    # --------------------------------------------------------
+
+    # and finally we quit the game
     pg.quit()
     sys.exit()
 
