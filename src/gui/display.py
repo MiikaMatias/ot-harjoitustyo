@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+# pylint: disable=undefined-variable
 
 class Display():
 
@@ -22,14 +23,16 @@ class Display():
         # Here we apply certain pygame locals that make things possible:
         #       HWSURFACE: Use hardware to store surface instead of memory in software.
         #                  Decreases bandwidth. However not necessarily supported by all
-        #                  video cards, so if stuff gets wacky we should disable this
-        #       DOUBLEBUF: Doublebuffering applies a separate memory block for 
-        #                  all draw routines, which reduces graphical artifacts 
+        #                  video cards, so if stuff gets all wacky we should disable this
+        #       DOUBLEBUF: Doublebuffering applies a separate memory block for
+        #                  all draw routines, which reduces graphical artifacts
         #                  such as flickering
         #       RESIZEABLE: Makes the screen dynamically resize
         # source: https://stackoverflow.com/questions/29135147/what-do-hwsurface-and-doublebuf-do
-        self.surface = pygame.display.set_mode((width, height),
-                                               HWSURFACE|DOUBLEBUF|RESIZABLE)
+
+        self.surface = pygame.display.set_mode((width, height),# pylint: disable=wildcard-import
+                                               HWSURFACE | DOUBLEBUF | RESIZABLE) # pylint: disable=unused-wildcard-import
+
 
         pygame.display.set_caption("Game of Life")
 
@@ -41,5 +44,3 @@ class Display():
                         self.surface (pygame.surface.Surface): surface object
         """
         return self.surface
-    
-
