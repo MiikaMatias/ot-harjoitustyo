@@ -32,9 +32,10 @@ class Image():
         self.scale_x, self.scale_y = scale_x, scale_y
         self.image = pg.image.load(file)
         self.image = pg.transform.smoothscale(self.image,
-                                            (self.image.get_width()*scale_x,
-                                            self.image.get_height()*scale_y),)
-        self.scale_x, self.scale_y = self.image.get_width()/self.screen.get_width(),self.image.get_height()/self.screen.get_height()
+                                              (self.image.get_width()*scale_x,
+                                               self.image.get_height()*scale_y),)
+        self.scale_x, self.scale_y = self.image.get_width(
+        )/self.screen.get_width(), self.image.get_height()/self.screen.get_height()
 
         self.rect = self.image.get_rect()
         self.rect.center = (screen.get_width()*col, screen.get_height()*row)
@@ -43,7 +44,8 @@ class Image():
         """
         Draws the Image in game based on the values of self.rect
         """
-        self.rect.center = (self.screen.get_width()*self.col, self.screen.get_height()*self.row)
+        self.rect.center = (self.screen.get_width()*self.col,
+                            self.screen.get_height()*self.row)
         self.screen.blit(self.image, (self.rect.x, self.rect.y))
         self.text_draw()
 
@@ -57,11 +59,12 @@ class Image():
                         width: screen width
                         height: screen height
         """
-        w, h = width*self.scale_x, height*self.scale_y
-        self.image = pg.transform.smoothscale(pg.image.load(self.file), 
-                                        (w,h),)
-        self.rect.size = w,h
-        self.image.get_rect().center = (self.screen.get_width()*self.col, self.screen.get_height()*self.row)
+        width, height = width*self.scale_x, height*self.scale_y
+        self.image = pg.transform.smoothscale(pg.image.load(self.file),
+                                              (width, height),)
+        self.rect.size = width, height
+        self.image.get_rect().center = (self.screen.get_width() *
+                                        self.col, self.screen.get_height()*self.row)
 
     def text_draw(self):
         # required at lower inheritance levels

@@ -11,6 +11,7 @@ class TestGameboard(unittest.TestCase):
     """
     Baseline test
     """
+
     def setUp(self):
         self.gameboard = GameOfLife(4, 4)
 

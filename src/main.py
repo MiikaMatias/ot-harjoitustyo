@@ -16,18 +16,24 @@ Some design principles of this project:
 import sys
 
 import pygame as pg
+from pygame.locals import *
 from gui.display import Display
 from gameobjects.menu.button import Button
+from gameobjects.game.tile import Tile
 from logic.gameboard import GameOfLife
-from pygame.locals import *
-# pylint: disable=undefined-variable
 
+# this suggestion is weird
+# pylint: disable=no-member
 
- # this suggestion is weird
- # pylint: disable=no-member
- # this suggestion is poor to implement here due
- # to the nature of a pygame game loop
- # pylint: disable=too-many-nested-blocks
+# this suggestion is poor to implement here due
+# to the nature of a pygame game loop
+# pylint: disable=too-many-nested-blocks
+
+# same goes for this one; it is better to define all variables here
+# for my purposes, instead of doing it from an external file, as the amount
+# of game objects will be relatively small; if you disagree, do inform me
+# pylint: disable=too-many-locals
+
 
 def main():
     """
@@ -62,42 +68,57 @@ def main():
     # Game Objects!
     # Here we define every game object we may use
     # --------------------------------------------------------
+
+    # buttons
+    long_buttons = "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/"
+    game = "src/assets/game_items/"
+
     menu_play_button = Button(surface, 0.5, 0.30, 0.45, 0.45,
-                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-green_L_btn.png",
-                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-blue_L_btn.png",
-                   lambda: "pregame")
+                              f"{long_buttons}CGB02-green_L_btn.png",
+                              f"{long_buttons}CGB02-blue_L_btn.png",
+                              lambda: "pregame")
     menu_play_button.text = "Play"
 
     menu_options_button = Button(surface, 0.5, 0.45, 0.35, 0.35,
-                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-green_L_btn.png",
-                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-blue_L_btn.png",
-                   lambda: "settings")
+                                 f"{long_buttons}CGB02-green_L_btn.png",
+                                 f"{long_buttons}CGB02-blue_L_btn.png",
+                                 lambda: "settings")
     menu_options_button.text = "Options"
 
     menu_quit_button = Button(surface, 0.5, 0.58, 0.35, 0.35,
-                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-green_L_btn.png",
-                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-blue_L_btn.png",
-                   lambda: "quit")
+                              f"{long_buttons}CGB02-green_L_btn.png",
+                              f"{long_buttons}CGB02-blue_L_btn.png",
+                              lambda: "quit")
     menu_quit_button.text = "Quit"
 
-
     settings_menu_button = Button(surface, 0.5, 0.20, 0.45, 0.45,
-                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-green_L_btn.png",
-                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-blue_L_btn.png",
-                   lambda: "menu")
+                                  f"{long_buttons}CGB02-green_L_btn.png",
+                                  f"{long_buttons}CGB02-blue_L_btn.png",
+                                  lambda: "menu")
     settings_menu_button.text = "Main Menu"
 
     pregame_menu_button = Button(surface, 0.1, 0.90, 0.25, 0.25,
-                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-green_L_btn.png",
-                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-blue_L_btn.png",
-                   lambda: "menu")
+                                 f"{long_buttons}CGB02-green_L_btn.png",
+                                 f"{long_buttons}CGB02-blue_L_btn.png",
+                                 lambda: "menu")
     pregame_menu_button.text = "Main Menu"
 
     pregame_game_button = Button(surface, 0.8, 0.1, 0.6, 0.6,
-                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-green_L_btn.png",
-                   "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/CGB02-blue_L_btn.png",
-                   lambda: "game")
+                                 f"{long_buttons}CGB02-green_L_btn.png",
+                                 f"{long_buttons}CGB02-blue_L_btn.png",
+                                 lambda: "game")
     pregame_game_button.text = "Start!"
+    # buttons
+
+
+
+    # tiles
+    game_tile_norm = Tile(surface, 0.5, 0.5, 0.4, 0.4,
+                         f"{game}tile000_l.png",
+                         f"{game}tile002_l.png")
+    game_tile_blue = None
+    game_tile_red = None
+    # tiles
 
     # Screens!
     # --------------------------------------------------------
@@ -114,7 +135,7 @@ def main():
     menu = [menu_play_button, menu_options_button, menu_quit_button]
     settings = [settings_menu_button]
     pre_game = [pregame_menu_button, pregame_game_button]
-    game = []
+    game = [game_tile_norm]
     active_scene = menu
     # --------------------------------------------------------
 
@@ -123,7 +144,7 @@ def main():
     # This guy holds all of the game logic within in. For more information check the
     # logic module from /src/logic.
 
-    gameboard = GameOfLife(6,6)  # pylint: disable=unused-variable
+    gameboard = GameOfLife(15, 15)  # pylint: disable=unused-variable
 
     # --------------------------------------------------------
 
@@ -140,12 +161,12 @@ def main():
 
     while running:
         # this resets the screen
-        screen.get_surface().fill((130,190,40))
+        screen.get_surface().fill((130, 190, 40))
 
         # we run common, essential functions for
         # all images, such as draw
         for image in active_scene:
-            image.draw()     
+            image.draw()
 
         # then we check for events
         for event in pg.event.get():
@@ -156,12 +177,12 @@ def main():
                     running = False
             elif event.type == pg.VIDEORESIZE:
                 for image in active_scene:
-                    image.resize(event.dict['size'][0], event.dict['size'][1])    
+                    image.resize(event.dict['size'][0], event.dict['size'][1])
                     if isinstance(image, Button):
                         image.text_resize()
             elif event.type == pg.MOUSEBUTTONUP:
                 for image in active_scene:
-                    if isinstance(image,Button):
+                    if isinstance(image, Button):
                         if image.check_hover():
                             activation = image.activate()
                             if activation == "pregame":
@@ -192,8 +213,8 @@ def main():
         elif active_scene == pre_game:
             pregame_menu_button.check_hover()
             pregame_game_button.check_hover()
-        elif active_scene == game: 
-            pass
+        elif active_scene == game:
+            game_tile_norm.check_hover()
 
         pg.display.update()
 

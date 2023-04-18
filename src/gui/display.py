@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-# pylint: disable=undefined-variable
+# pylint: disable=wildcard-import
 
 class Display():
 
@@ -30,9 +30,8 @@ class Display():
         #       RESIZEABLE: Makes the screen dynamically resize
         # source: https://stackoverflow.com/questions/29135147/what-do-hwsurface-and-doublebuf-do
 
-        self.surface = pygame.display.set_mode((width, height),# pylint: disable=wildcard-import
-                                               HWSURFACE | DOUBLEBUF | RESIZABLE) # pylint: disable=unused-wildcard-import
-
+        self.surface = pygame.display.set_mode((width, height),
+                                               HWSURFACE | DOUBLEBUF | RESIZABLE) 
 
         pygame.display.set_caption("Game of Life")
 
@@ -44,5 +43,3 @@ class Display():
                         self.surface (pygame.surface.Surface): surface object
         """
         return self.surface
-    
-

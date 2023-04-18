@@ -46,9 +46,10 @@ class GameOfLife():
         if state in [2, 0, 1]:
             self.gameboard[(row-1), (col-1)] = state
         else:
-            raise ValueError(f"State of {state} is invalid, must be in [2,0,1]")
+            raise ValueError(
+                f"State of {state} is invalid, must be in [2,0,1]")
 
-    def get_state(self, current:int, ones:int, twos:int) -> int:
+    def get_state(self, current: int, ones: int, twos: int) -> int:
         """
         This function returns the future state of a cell based
         on it's surrounding elements
@@ -110,9 +111,9 @@ class GameOfLife():
         # let's "do the thang"
         # we filter out impossible coordinates
         possible_column_coordinates = list(filter(lambda x: 0 <= x < self.width,
-                                                [x_coord-1, x_coord, x_coord+1]))
-        possible_row_coordinates = list(filter(lambda x: 0 <= x < self.height
-                                               ,[y_coord-1, y_coord, y_coord+1]))
+                                                  [x_coord-1, x_coord, x_coord+1]))
+        possible_row_coordinates = list(
+            filter(lambda x: 0 <= x < self.height, [y_coord-1, y_coord, y_coord+1]))
 
         # go through the matrix
         for column in possible_column_coordinates:
@@ -131,7 +132,8 @@ class GameOfLife():
             for i in range(0, self.height):
                 current = self.gameboard[i, j]
                 ones, twos = self.cells_in_radius(j+1, i+1)
-                self.next_turn_state[i,j] = self.get_state(current,ones,twos)
+                self.next_turn_state[i, j] = self.get_state(
+                    current, ones, twos)
 
         self.gameboard = self.next_turn_state
 
