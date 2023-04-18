@@ -14,12 +14,12 @@ Some design principles of this project:
       This will probably not be the case, as I will focus on working on a clean project.
 """
 
-# Some modifications to pylint
+# Some modifications to pylint, mostly due to the specifics of pygame
 
-# this suggestion is weird
+# this suggestion does not work with pygame; allow it and see for yourself
 # pylint: disable=no-member
 
-# this suggestion is not necessary either, pygame locals
+# this suggestion is not useful either, pygame locals
 # import does not work unless done as a wild card for some
 # reason
 # pylint: disable=wildcard-import
@@ -33,9 +33,9 @@ Some design principles of this project:
 # of game objects will be relatively small; if you disagree, do inform me
 # pylint: disable=too-many-locals
 
-# Additionally the pygame gameloop is just gonna have to include many branches.
-# Abstracting a lot of it away would in my view subtract from meaningful development,
-# as I'd have to hop around different files
+# On the same topic, the pygame gameloop is just gonna have to include many branches.
+# Abstracting a lot of it away would subtract from meaningful development time,
+# as I'd have to hop around different files instead of looking at the gameloop. 
 # pylint: disable=too-many-branches
 # pylint: disable=too-many-statements
 
@@ -48,9 +48,6 @@ from gameobjects.menu.button import Button
 from gameobjects.game.tile import Tile
 from logic.gameboard import GameOfLife
 
-
-
-
 def main():
     """
     Main loop
@@ -58,7 +55,7 @@ def main():
     pg.init()
     running = True
 
-    # We set up a display initially
+    # We set up a Display instance initially
     # I hope that segregating the display and screen into
     # a single class will allow for abstracting complexity
     # in a neat way in the future.
@@ -83,9 +80,18 @@ def main():
 
     # Game Objects!
     # Here we define every game object we may use
+    # There are valid arguments for moving this stuff into an external file,
+    # but as the amount of non-trivial (copied) game objects we need to define
+    # seems to be small (<20), I'm personally fine holding these here at the 
+    # moment. If the instructor deems this as bad practice, then they can tell me.
+    #
+    # This also makes scene management more pleasant, as we can modify scenes while
+    # referring to the actual gameobjects above. On the reader's side I think this 
+    # is quite clear and easy to understand too; first we have game objects, then
+    # we define screens and where they belong
     # --------------------------------------------------------
 
-    # buttons
+# buttons
     long_buttons = "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/"
     game = "src/assets/game_items/"
 
@@ -124,13 +130,13 @@ def main():
                                  f"{long_buttons}CGB02-blue_L_btn.png",
                                  lambda: "game")
     pregame_game_button.text = "Start!"
-    # buttons
+# buttons
 
-    # tiles
+# tiles
     game_tile_norm = Tile(surface, 0.5, 0.5, 0.4, 0.4,
                           f"{game}tile000_l.png",
                           f"{game}tile002_l.png")
-    # tiles
+# tiles
 
     # Screens!
     # --------------------------------------------------------
@@ -142,13 +148,21 @@ def main():
     #   2) iterate through all menu items and turn off their rendering, collision etc.
     #   3) iterate through all items from the game and turn on their respective features
     #
-    # We've now transferred state! No idea if this implementation is good or not but we'll see
+    # At the moment the strength of this implementation seems to lie in it's simplicity; 
+    # we can check the parameters and traits of a gameobject above, and then simply 
+    # smack in down into a scene, run the game and see it there. This also speaks for
+    # defining gameobjects in the main script, and not in a separate file. Of course
+    # in a hypothetical world where this project is scaled in a manner where we get
+    # to 20+ game objects, this would be undoable. However I'm not living in that world 
+    #  > : ^ ) 
 
     menu = [menu_play_button, menu_options_button, menu_quit_button]
     settings = [settings_menu_button]
     pre_game = [pregame_menu_button, pregame_game_button]
     game = [game_tile_norm]
     active_scene = menu
+
+
     # --------------------------------------------------------
 
     # Gameboard !
@@ -165,7 +179,7 @@ def main():
     # This is the main gameplay loop
     # Each line of this code is ran for every frame
     # A lot of the underlying complexity of the implementation
-    # is hidden behind custom functions such as resize()
+    # is hidden behind methods such as resize()
 
     pg.mixer.music.set_volume(0.04)
     pg.mixer.music.load('src/assets/sound/music/Menu_soundtrack.wav')

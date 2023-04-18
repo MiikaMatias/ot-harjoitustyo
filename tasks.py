@@ -28,4 +28,5 @@ def coverage_report(ctx):
     """
     Generate an html report in addition
     """
+    ctx.run("coverage report", pty=True)
     ctx.run("coverage html", pty=True)
