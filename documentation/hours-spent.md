@@ -5,4 +5,5 @@
 | 03.3 | 7 | Executing assignments, Making project |
 |05.3| 1 | Finished rudimentary game logic|
 |17.3| 6 | Fleshed out some foundational classes, set up menu structure |
-|total|19||
+|18.3| 6 | Made everything clean, added animations, sound effects to the menu |
+|total|25||

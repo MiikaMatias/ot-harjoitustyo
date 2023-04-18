@@ -64,8 +64,8 @@ class GameOfLife():
         """
         ret = 0
 
-        if current == 1:
-            if ones >= 4:
+        if current == 1:    # will shorten this in a 
+            if ones >= 4:   # smart way at some point
                 ret = 0
             elif ones <= 1:
                 ret = 0

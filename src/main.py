@@ -81,14 +81,15 @@ def main():
     # Game Objects!
     # Here we define every game object we may use
     # There are valid arguments for moving this stuff into an external file,
-    # but as the amount of non-trivial (copied) game objects we need to define
+    # but as the amount of non-trivial (copied; tiles) game objects we need to define
     # seems to be small (<20), I'm personally fine holding these here at the 
     # moment. If the instructor deems this as bad practice, then they can tell me.
     #
     # This also makes scene management more pleasant, as we can modify scenes while
     # referring to the actual gameobjects above. On the reader's side I think this 
     # is quite clear and easy to understand too; first we have game objects, then
-    # we define screens and where they belong
+    # we define screens and where they belong; 
+    # we can even highlight objects and see them in scenes!
     # --------------------------------------------------------
 
 # buttons

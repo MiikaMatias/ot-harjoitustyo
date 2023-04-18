@@ -14,5 +14,6 @@
 - Fleshed out the button class, and made it inherit off of the Image class
 - Cleaned up the functionality of GameOfLife by a lot
 - Downloaded some assets that will probably be used in the actual implemenation of the game
-
-TODO GIVE CREDIT FOR ASSETS
+- Wrote credits for assets
+- Made buttons, text, game objects completely dynamically sizeable; text has different properties than f.e. tiles
+- Made a preliminary tile class that will work as the communication point between game logic and the UI through the gameboard
