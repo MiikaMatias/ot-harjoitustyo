@@ -1,0 +1,3 @@
+The Lambda font used in this project is designed by GGBotNet
+
+Please check out their work at: https://ggbot.itch.io/lambda-font

@@ -45,6 +45,7 @@ class Image():
         """
         self.rect.center = (self.screen.get_width()*self.col, self.screen.get_height()*self.row)
         self.screen.blit(self.image, (self.rect.x, self.rect.y))
+        self.text_draw()
 
     def resize(self, width, height):
         """
@@ -61,3 +62,7 @@ class Image():
                                         (w,h),)
         self.rect.size = w,h
         self.image.get_rect().center = (self.screen.get_width()*self.col, self.screen.get_height()*self.row)
+
+    def text_draw(self):
+        # required at lower inheritance levels
+        pass

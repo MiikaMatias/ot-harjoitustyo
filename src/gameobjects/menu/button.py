@@ -3,6 +3,7 @@ Contains the Button gameobject
 """
 import pygame as pg
 from gui.image import Image
+from math import sqrt
 
 class Button(Image):
     """
@@ -21,6 +22,30 @@ class Button(Image):
 
         self.pressed_file = pressed
         self.function = function_when_pressed
+        pg.font.init() # you have to call this at the start, 
+                   # if you want to use this module.
+
+        # we also define some text for a button
+        self.scale_factor = self.screen.get_width()*0.2
+        self.font = pg.font.Font('src/assets/font/Lambda-Regular.ttf', int(self.scale_x*(self.scale_factor)))
+        self.text = "null"
+
+        # we define sounds too!
+        self.click_sound = pg.mixer.Sound("src/assets/sound/sfx/ButtonClick.wav")
+        self.click_sound.set_volume(0.05)
+        # here we define a cooldown variable for sounds
+        self.cooldown_hover = True
+
+
+    def text_draw(self):
+        """
+        Draw the text surface
+        """
+        self.font = pg.font.Font('src/assets/font/Lambda-Regular.ttf', 
+                                int(self.scale_x*(self.scale_factor)))
+        text = self.font.render(self.text, 1, (255, 255, 255))
+        text_rect = text.get_rect(center=(self.col*self.screen.get_width(), self.row*self.screen.get_height()))
+        self.screen.blit(text, text_rect)
 
     def check_hover(self):
         """
@@ -52,5 +77,8 @@ class Button(Image):
         """
         "Activates" the button, or calls its function and returns output.
         """
+        pg.mixer.Sound.play(self.click_sound)
         return self.function()
-        
+
+    def text_resize(self):
+        self.scale_factor = self.screen.get_width()*0.17

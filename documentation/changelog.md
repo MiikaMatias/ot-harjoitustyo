@@ -14,3 +14,5 @@
 - Fleshed out the button class, and made it inherit off of the Image class
 - Cleaned up the functionality of GameOfLife by a lot
 - Downloaded some assets that will probably be used in the actual implemenation of the game
+
+TODO GIVE CREDIT FOR ASSETS
