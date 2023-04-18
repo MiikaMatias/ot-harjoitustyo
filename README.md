@@ -12,6 +12,9 @@ Use python 3.8.
 [Changelog](./documentation/changelog.md)
 
 
+[Architecture](./documentation/architecture.md)
+
+
 [Time spent on the project](./documentation/hours-spent.md)
 
 
