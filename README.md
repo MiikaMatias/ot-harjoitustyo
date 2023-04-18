@@ -12,6 +12,9 @@ Use python 3.8.
 [Changelog](./documentation/changelog.md)
 
 
+[Architecture](./documentation/architecture.md)
+
+
 [Time spent on the project](./documentation/hours-spent.md)
 
 
@@ -19,7 +22,9 @@ Use python 3.8.
 
 1. Install the dependencies:
 `poetry install`
-2. Run the project
+2. Build the project
+`poetry run invoke build`
+3. Run the project
 `poetry run invoke start`
 
 ## Command line functionality
