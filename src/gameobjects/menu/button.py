@@ -4,6 +4,7 @@ Contains the Button gameobject
 import pygame as pg
 from gui.image import Image
 
+
 class Button(Image):
     """
     Inherits from: Image

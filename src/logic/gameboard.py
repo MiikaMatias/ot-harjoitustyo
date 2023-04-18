@@ -158,7 +158,7 @@ if __name__ == '__main__':
     gol.set_cell(10, 10, 2)
     gol.set_cell(11, 11, 2)
 
-    for _ in range(3):
+    for _ in range(20):
         print(gol)
         gol.flyby()
         print()

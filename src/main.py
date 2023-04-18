@@ -13,17 +13,16 @@ Some design principles of this project:
     - The definition document did state that I will be implementing online functionality.
       This will probably not be the case, as I will focus on working on a clean project.
 """
-import sys
 
-import pygame as pg
-from pygame.locals import *
-from gui.display import Display
-from gameobjects.menu.button import Button
-from gameobjects.game.tile import Tile
-from logic.gameboard import GameOfLife
+# Some modifications to pylint
 
 # this suggestion is weird
 # pylint: disable=no-member
+
+# this suggestion is not necessary either, pygame locals
+# import does not work unless done as a wild card for some
+# reason
+# pylint: disable=wildcard-import
 
 # this suggestion is poor to implement here due
 # to the nature of a pygame game loop
@@ -33,6 +32,23 @@ from logic.gameboard import GameOfLife
 # for my purposes, instead of doing it from an external file, as the amount
 # of game objects will be relatively small; if you disagree, do inform me
 # pylint: disable=too-many-locals
+
+# Additionally the pygame gameloop is just gonna have to include many branches.
+# Abstracting a lot of it away would in my view subtract from meaningful development,
+# as I'd have to hop around different files
+# pylint: disable=too-many-branches
+# pylint: disable=too-many-statements
+
+import sys
+
+import pygame as pg
+from pygame.locals import *
+from gui.display import Display
+from gameobjects.menu.button import Button
+from gameobjects.game.tile import Tile
+from logic.gameboard import GameOfLife
+
+
 
 
 def main():
@@ -110,14 +126,10 @@ def main():
     pregame_game_button.text = "Start!"
     # buttons
 
-
-
     # tiles
     game_tile_norm = Tile(surface, 0.5, 0.5, 0.4, 0.4,
-                         f"{game}tile000_l.png",
-                         f"{game}tile002_l.png")
-    game_tile_blue = None
-    game_tile_red = None
+                          f"{game}tile000_l.png",
+                          f"{game}tile002_l.png")
     # tiles
 
     # Screens!

@@ -25,15 +25,16 @@ class Tile(Image):
                 Parameters:
                         width: screen width
                         height: screen height
-        
+
         This is the Tile specific version of resize, because tiles have to always be
         equal in width and height
         """
-        mean_scaling_factor = ((self.scale_x+self.scale_y)/2)
+        mean_scaling_factor = (self.scale_x+self.scale_y)/2
         width, height = width*mean_scaling_factor, width*mean_scaling_factor
+        self.rect.size = width, height
+
         self.image = pg.transform.smoothscale(pg.image.load(self.file),
                                               (width, height),)
-        self.rect.size = width, height
         self.image.get_rect().center = (self.screen.get_width() *
                                         self.col, self.screen.get_height()*self.row)
 
@@ -55,11 +56,11 @@ class Tile(Image):
         Parameters:
                 file: the file that we change into
                 scale: the scaling we do to standard size
-        
+
         Here too we have to mess with the scaling to allow for equal
         width and height
         """
-        mean_scaling_factor = ((self.scale_x+self.scale_y)/2)
+        mean_scaling_factor = (self.scale_x+self.scale_y)/2
         self.image = pg.transform.smoothscale(pg.image.load(file),
                                               (self.screen.get_width()*mean_scaling_factor*scale,
                                                self.screen.get_width()*mean_scaling_factor*scale),)
