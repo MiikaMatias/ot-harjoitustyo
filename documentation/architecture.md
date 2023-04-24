@@ -41,6 +41,7 @@ The baseline logic of the project with all relevant classes and their methods is
 The gist of the implementation is that the game logic resides in the uppermost GameOfLife class, the state of which can be modified by interacting with tiles through the display class, that are packed inside a board entity that contains the intersection between the graphical Tile instances and the logical GameOfLife instance. The board can utilise the fetch_next() method to update the boardstate from the one that the player has set to the next one. This change then affects the display. All graphical elements are also represented inside an Image class, such as tiles and buttons. Without this class communicating between the screen and the gameobjects would become chaotic.
 
 ## Main functionality 
+### Change cell
 The following graph goes through what happens when a cell is modified in the game screen from the perspective of the main loop as a class in itself, during a single frame.
 
 ```mermaid
