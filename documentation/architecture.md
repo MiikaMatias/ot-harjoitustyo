@@ -42,7 +42,7 @@ The gist of the implementation is that the game logic resides in the uppermost G
 
 ## Main functionality 
 ### Change cell
-The following graph goes through what happens when a cell is modified in the game screen from the perspective of the main loop as a class in itself, during a single frame.
+The following graph goes through what happens when a cell is modified by a player clicking at a tile in the GUI.
 
 ```mermaid
 sequenceDiagram
@@ -65,3 +65,5 @@ sequenceDiagram
   Board -->> Player 1: End turn
 ```
 This graph does simplify some things, such as the inheritance dynamics between Tile and it's parent Image, and ignores the complexity happening under pg. However otherwise it is quite a good depiction of what happens on an useful level of abstraction.
+
+Keep in mind that the pg module at every click checks all tiles (and buttons) with check_hover().
