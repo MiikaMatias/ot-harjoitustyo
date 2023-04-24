@@ -31,3 +31,5 @@ Use python 3.8.
 Run tests by running `poetry run invoke coverage`
 
 Generate a report by running `poetry run invoke coverage-report`
+
+Check pylint by running `poetry run invoke lint`
