@@ -17,3 +17,10 @@
 - Wrote credits for assets
 - Made buttons, text, game objects completely dynamically sizeable; text has different properties than f.e. tiles
 - Made a preliminary tile class that will work as the communication point between game logic and the UI through the gameboard
+
+## Week 5
+
+- Implemented game of life; spacebar runs the turn and sets the board state equal to the next one, clicking a tile alters it
+- Messed with the screen a bit, trying to make tiling work well. Succeeded to some extent. 
+- Wrote documentation
+- Added tasks that were missing in the prior update

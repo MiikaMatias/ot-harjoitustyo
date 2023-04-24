@@ -1,6 +1,7 @@
 import pygame
-from pygame.locals import *
 # pylint: disable=wildcard-import
+# pylint: disable=unused-wildcard-import
+from pygame.locals import *
 
 
 class Display():
@@ -32,7 +33,7 @@ class Display():
         # source: https://stackoverflow.com/questions/29135147/what-do-hwsurface-and-doublebuf-do
 
         self.surface = pygame.display.set_mode((width, height),
-                                               HWSURFACE | DOUBLEBUF | RESIZABLE )
+                                               HWSURFACE | DOUBLEBUF | RESIZABLE)  # pylint: disable=undefined-variable
 
         pygame.display.set_caption("Game of Life")
 

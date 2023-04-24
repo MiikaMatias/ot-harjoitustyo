@@ -12,15 +12,16 @@ class Tile(Image):
 
     def __init__(self, screen, col: int, row: int, scale_x: int,
                  scale_y: int) -> None:
-        super().__init__(screen, col, row, scale_x, scale_y, "src/assets/game_items/tile000_l.png",)
+        super().__init__(screen, col, row, scale_x, scale_y,
+                         "src/assets/game_items/tile000_l.png",)
 
         self.sprite_hover = "src/assets/game_items/tile002_l.png"
         self.sprite_player_1 = "src/assets/game_items/tile001_l.png"
         self.sprite_player_2 = "src/assets/game_items/tile003_l.png"
 
-        # this variable is set after construction by running 
+        # this variable is set after construction by running
         # through the gameboard
-        self.coords = (0,0)
+        self.coords = (0, 0)
 
     def resize(self, width, height):
         """
@@ -43,14 +44,14 @@ class Tile(Image):
         height_to_width = self.screen.get_height()/self.screen.get_width()
 
         self.image = pg.transform.smoothscale(pg.image.load(self.file),
-                                              (((self.screen.get_width()*width_to_height+
-                                                 self.screen.get_height()*height_to_width)/2)*
-                                                 mean_scaling_factor*self.scale_x,
-                                               ((self.screen.get_width()*width_to_height+
-                                                 self.screen.get_height()*height_to_width)/2)*
-                                                 mean_scaling_factor*self.scale_y),)
+                                              (((self.screen.get_width()*width_to_height +
+                                                 self.screen.get_height()*height_to_width)/2) *
+                                               mean_scaling_factor*self.scale_x,
+                                               ((self.screen.get_width()*width_to_height +
+                                                 self.screen.get_height()*height_to_width)/2) *
+                                               mean_scaling_factor*self.scale_y),)
 
-        self.image.get_rect().center = (self.screen.get_width()*height_to_width *self.col,
+        self.image.get_rect().center = (self.screen.get_width()*height_to_width * self.col,
                                         self.screen.get_height()*width_to_height*self.row)
 
     def check_hover(self):
@@ -84,12 +85,12 @@ class Tile(Image):
         height_to_width = self.screen.get_height()/self.screen.get_width()
 
         self.image = pg.transform.smoothscale(pg.image.load(file),
-                                              (((self.screen.get_width()*width_to_height+
-                                                 self.screen.get_height()*height_to_width)/2)*
-                                                 mean_scaling_factor*scale,
-                                               ((self.screen.get_width()*width_to_height+
-                                                 self.screen.get_height()*height_to_width)/2)*
-                                                 mean_scaling_factor*scale),)
+                                              (((self.screen.get_width()*width_to_height +
+                                                 self.screen.get_height()*height_to_width)/2) *
+                                               mean_scaling_factor*scale,
+                                               ((self.screen.get_width()*width_to_height +
+                                                 self.screen.get_height()*height_to_width)/2) *
+                                               mean_scaling_factor*scale),)
 
-        self.image.get_rect().center = (self.screen.get_width()*width_to_height *self.col,
+        self.image.get_rect().center = (self.screen.get_width()*width_to_height * self.col,
                                         self.screen.get_height()*height_to_width*self.row)

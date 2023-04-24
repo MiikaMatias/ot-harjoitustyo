@@ -44,3 +44,10 @@ def build(ctx):
     Build with poetry.
     """
     ctx.run("poetry build", pty=True)
+
+@task
+def format(ctx):
+    """
+    Do an autopep8 formatting
+    """
+    ctx.run("autopep8 --in-place --recursive src", pty=True)

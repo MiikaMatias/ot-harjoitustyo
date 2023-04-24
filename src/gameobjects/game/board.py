@@ -18,11 +18,11 @@ class Board():
         self.tile_amount = len(tiles)
         self.logic = game_logic
         self.current_player = 1
-        self.N = 10
+        self.size = 10
 
-        for column in range(self.N):
-            for row in range(self.N):
-                i = row*self.N + column
+        for column in range(self.size):
+            for row in range(self.size):
+                i = row*self.size + column
                 self.tiles[i].coords = (row, column)
 
         # we modify the default file of the tile through these
@@ -30,7 +30,7 @@ class Board():
         self.sprite_player_1 = "src/assets/game_items/tile001_l.png"
         self.sprite_player_2 = "src/assets/game_items/tile003_l.png"
 
-    def set(self, i:int, j:int):
+    def set(self, i: int, j: int):
         """
         Sets a tile to live for either player 1, 2 or 0 for intra
         class purposes; depending on self.current_player.
@@ -42,10 +42,10 @@ class Board():
         """
 
         # here we set the cell in logic
-        self.logic.set_cell(i+1,j+1,self.current_player)
-        
+        self.logic.set_cell(i+1, j+1, self.current_player)
+
         # get tile
-        target_tile = self.tiles[i*self.N+j]
+        target_tile = self.tiles[i*self.size+j]
 
         if self.current_player == 0:
             target_tile.file = self.sprite_dead
@@ -62,17 +62,16 @@ class Board():
         """
         self.logic.flyby()
 
-        for i in range(self.N):
-            for j in range(self.N):
-                self.current_player = self.logic.gameboard[i,j]
-                self.set(j,i)
-        
-    
+        for i in range(self.size):
+            for j in range(self.size):
+                self.current_player = self.logic.gameboard[i, j]
+                self.set(j, i)
+
     def end_turn(self):
         """
         Swaps player
         """
         if self.current_player == 1:
             self.current_player = 2
-        else: 
+        else:
             self.current_player = 1

@@ -83,8 +83,8 @@ class GameOfLife():
             else:
                 ret = 2
         else:
-            if ones == 3 and twos == 3: #contested?
-                ret = 0  
+            if ones == 3 and twos == 3:  # contested?
+                ret = 0
             elif ones == 3:
                 ret = 1
             elif twos == 3:

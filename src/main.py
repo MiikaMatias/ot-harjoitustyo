@@ -42,15 +42,14 @@ Some design principles of this project:
 import sys
 
 import pygame as pg
-from pygame.locals import *
+# numpy is needed for np.arange
+import numpy as np
+from pygame.locals import *  # pylint: disable=unused-wildcard-import
 from gui.display import Display
 from gameobjects.menu.button import Button
 from gameobjects.game.tile import Tile
 from gameobjects.game.board import Board
 from logic.gameboard import GameOfLife
-
-# numpy is needed for np.arange
-import numpy as np
 
 
 def main():
@@ -140,7 +139,8 @@ def main():
 # buttons
 
 # tiles
-    tiles = [Tile(surface, x, y, 1,1) for x in np.arange(0.2,0.9, 0.07) for y in np.arange(0.2,0.9, 0.07)]
+    tiles = [Tile(surface, x, y, 1, 1) for x in np.arange(
+        0.2, 0.9, 0.07) for y in np.arange(0.2, 0.9, 0.07)]
 
 # tiles
 
@@ -232,7 +232,6 @@ def main():
                     elif isinstance(image, Tile):
                         if image.check_hover():
                             board.set(*image.coords)
-
 
         # and lastly we check for special cases in respect
         # to the current active scene
