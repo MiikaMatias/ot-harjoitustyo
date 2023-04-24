@@ -46,7 +46,11 @@ from pygame.locals import *
 from gui.display import Display
 from gameobjects.menu.button import Button
 from gameobjects.game.tile import Tile
+from gameobjects.game.board import Board
 from logic.gameboard import GameOfLife
+
+# numpy is needed for np.arange
+import numpy as np
 
 
 def main():
@@ -69,7 +73,7 @@ def main():
     #
     #       screen.surface
     #
-    screen = Display(800, 600)
+    screen = Display(800, 800)
     surface = screen.get_surface()
 
     # we set up screens here, explained further below
@@ -136,9 +140,8 @@ def main():
 # buttons
 
 # tiles
-    game_tile_norm = Tile(surface, 0.5, 0.5, 0.4, 0.4,
-                          f"{game}tile000_l.png",
-                          f"{game}tile002_l.png")
+    tiles = [Tile(surface, x, y, 1,1) for x in np.arange(0.2,0.9, 0.07) for y in np.arange(0.2,0.9, 0.07)]
+
 # tiles
 
     # Screens!
@@ -162,17 +165,18 @@ def main():
     menu = [menu_play_button, menu_options_button, menu_quit_button]
     settings = [settings_menu_button]
     pre_game = [pregame_menu_button, pregame_game_button]
-    game = [game_tile_norm]
+    game = [*tiles]
     active_scene = menu
 
     # --------------------------------------------------------
 
-    # Gameboard !
+    # gamelogic !
     # --------------------------------------------------------
     # This guy holds all of the game logic within in. For more information check the
     # logic module from /src/logic.
 
-    gameboard = GameOfLife(15, 15)  # pylint: disable=unused-variable
+    gamelogic = GameOfLife(10, 10)  # pylint: disable=unused-variable
+    board = Board(tiles, gamelogic)
 
     # --------------------------------------------------------
 
@@ -203,6 +207,8 @@ def main():
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
                     running = False
+                elif event.key == pg.K_SPACE:
+                    board.fetch_next()
             elif event.type == pg.VIDEORESIZE:
                 for image in active_scene:
                     image.resize(event.dict['size'][0], event.dict['size'][1])
@@ -223,12 +229,10 @@ def main():
                                 active_scene = menu
                             elif activation == "game":
                                 active_scene = game
-                            for image in active_scene:
-                                image.resize(screen.get_surface().get_width(),
-                                             screen.get_surface().get_height())
-                                if isinstance(image, Button):
-                                    image.text_resize()
-                            print(active_scene)
+                    elif isinstance(image, Tile):
+                        if image.check_hover():
+                            board.set(*image.coords)
+
 
         # and lastly we check for special cases in respect
         # to the current active scene
@@ -242,7 +246,9 @@ def main():
             pregame_menu_button.check_hover()
             pregame_game_button.check_hover()
         elif active_scene == game:
-            game_tile_norm.check_hover()
+            for obj in game:
+                if isinstance(obj, Tile):
+                    obj.check_hover()
 
         pg.display.update()
 

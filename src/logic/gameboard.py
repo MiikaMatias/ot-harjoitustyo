@@ -64,22 +64,28 @@ class GameOfLife():
         """
         ret = 0
 
-        if current == 1:    # will shorten this in a
-            if ones >= 4:   # smart way at some point
+        if current == 1:
+            if twos > ones:     # first priority: do enemies outnumber allies
                 ret = 0
-            elif ones <= 1:
+            elif ones >= 4:     # second priority: are there too many allies
                 ret = 0
-            else:
+            elif ones <= 1:     # third priority: are there too few allies
+                ret = 0
+            else:               # if not, set to alive
                 ret = 1
-        elif current == 2:
-            if twos >= 4:
+        elif current == 2:      # same goes here
+            if ones > twos:
+                ret = 0
+            elif twos >= 4:
                 ret = 0
             elif twos <= 1:
                 ret = 0
             else:
                 ret = 2
         else:
-            if ones == 3:
+            if ones == 3 and twos == 3: #contested?
+                ret = 0  
+            elif ones == 3:
                 ret = 1
             elif twos == 3:
                 ret = 2

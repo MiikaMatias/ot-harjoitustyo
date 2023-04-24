@@ -38,3 +38,9 @@ def lint(ctx):
     """
     ctx.run("pylint src", pty=True)
 
+@task
+def build(ctx):
+    """
+    Build with poetry.
+    """
+    ctx.run("poetry build", pty=True)
