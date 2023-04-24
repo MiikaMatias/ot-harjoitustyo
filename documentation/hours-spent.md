@@ -6,5 +6,5 @@
 |05.3| 1 | Finished rudimentary game logic|
 |17.3| 6 | Fleshed out some foundational classes, set up menu structure |
 |18.3| 6 | Made everything clean, added animations, sound effects to the menu |
-|24.3| 6 | Implemented the game of life portion of the project graphically; fixed scaling issues with tiles |
+|24.3| 6 | Implemented the game of life portion of the project graphically; fixed scaling issues with tiles; documentation |
 |total|31||
