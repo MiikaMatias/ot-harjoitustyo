@@ -1,7 +1,7 @@
 """
 Represents a single cell in pygame. I could have inherited many
 functions to this class from "Button" but that did not feel sensible.
-After all, this is a game object, not an UI object. 
+After all, this is a game object, not a button   object. 
 """
 
 import pygame as pg

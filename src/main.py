@@ -35,7 +35,7 @@ Some design principles of this project:
 
 # On the same topic, the pygame gameloop is just gonna have to include many branches.
 # Abstracting a lot of it away would subtract from meaningful development time,
-# as I'd have to hop around different files instead of looking at the gameloop. 
+# as I'd have to hop around different files instead of looking at the gameloop.
 # pylint: disable=too-many-branches
 # pylint: disable=too-many-statements
 
@@ -47,6 +47,7 @@ from gui.display import Display
 from gameobjects.menu.button import Button
 from gameobjects.game.tile import Tile
 from logic.gameboard import GameOfLife
+
 
 def main():
     """
@@ -79,16 +80,17 @@ def main():
     active_scene = menu
 
     # Game Objects!
-    # Here we define every game object we may use
+    # Here we define every game object we will use
     # There are valid arguments for moving this stuff into an external file,
-    # but as the amount of non-trivial (copied; tiles) game objects we need to define
-    # seems to be small (<20), I'm personally fine holding these here at the 
-    # moment. If the instructor deems this as bad practice, then they can tell me.
+    # but as the amount of non-trivial (copied; tiles, probably abstracted into a
+    # larger class later) game objects we need to define seems to be small (<20),
+    # I'm personally fine holding these here at the moment. If the instructor
+    # deems this as bad practice, then they can tell me.
     #
     # This also makes scene management more pleasant, as we can modify scenes while
-    # referring to the actual gameobjects above. On the reader's side I think this 
+    # referring to the actual gameobjects above. On the reader's side I think this
     # is quite clear and easy to understand too; first we have game objects, then
-    # we define screens and where they belong; 
+    # we define screens and where they belong;
     # we can even highlight objects and see them in scenes!
     # --------------------------------------------------------
 
@@ -149,20 +151,19 @@ def main():
     #   2) iterate through all menu items and turn off their rendering, collision etc.
     #   3) iterate through all items from the game and turn on their respective features
     #
-    # At the moment the strength of this implementation seems to lie in it's simplicity; 
-    # we can check the parameters and traits of a gameobject above, and then simply 
+    # At the moment the strength of this implementation seems to lie in it's simplicity;
+    # we can check the parameters and traits of a gameobject above, and then simply
     # smack in down into a scene, run the game and see it there. This also speaks for
     # defining gameobjects in the main script, and not in a separate file. Of course
     # in a hypothetical world where this project is scaled in a manner where we get
-    # to 20+ game objects, this would be undoable. However I'm not living in that world 
-    #  > : ^ ) 
+    # to 20+ game objects, this would be undoable. However I'm not living in that world
+    #  > : ^ ) (yet)
 
     menu = [menu_play_button, menu_options_button, menu_quit_button]
     settings = [settings_menu_button]
     pre_game = [pregame_menu_button, pregame_game_button]
     game = [game_tile_norm]
     active_scene = menu
-
 
     # --------------------------------------------------------
 
