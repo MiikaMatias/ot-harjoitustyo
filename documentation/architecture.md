@@ -1,4 +1,5 @@
 ## structure of the project (excluding pygame functionality)
+The baseline structure of the project with all relevant classes is described with the below diagram.
 ```mermaid
  classDiagram
  
