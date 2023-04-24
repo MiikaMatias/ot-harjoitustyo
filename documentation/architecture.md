@@ -66,4 +66,4 @@ sequenceDiagram
 ```
 This graph does simplify some things, such as the inheritance dynamics between Tile and it's parent Image, and ignores the complexity happening under pg. However otherwise it is quite a good depiction of what happens on an useful level of abstraction.
 
-Keep in mind that the pg module at every click checks all tiles (and buttons) with check_hover(). Furthermore, the last action from Board to Player 1 actually occurs within the Board class itself.
+Keep in mind that the pg module at every click checks all tiles (and buttons) with check_hover(). Sound effects are also not shown here, but they occur through the pg module. Furthermore, the last action from Board to Player 1 actually occurs within the Board class itself.
