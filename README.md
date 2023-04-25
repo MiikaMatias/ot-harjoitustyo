@@ -1,6 +1,8 @@
 # Game of life: Multiplayer
-This game will be a multiplayer version of the titular game! As of this moment it is incredibly unfinished, but check the definition document.
+This game will be a multiplayer version of the titular game! As of this moment it is unfinished.
 
+## How to play
+Navigate to the game from the menu. Click to create a cell of either color (every second click is blue, every second is red). Press space to go to the next state.
 
 ## Python version 
 Use python 3.8.
