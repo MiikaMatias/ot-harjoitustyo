@@ -35,16 +35,26 @@ class Board():
         self.sprite_player_1 = "src/assets/game_items/tile001_l.png"
         self.sprite_player_2 = "src/assets/game_items/tile003_l.png"
 
-    def set(self, i: int, j: int):
+    def set(self, i: int, j: int, can_be_rejected = False) -> bool:
         """
         Sets a tile to live for either player 1, 2 or 0 for intra
         class purposes; depending on self.current_player.
         Utilises ranges 1-N.
 
             Args: 
-                i: the row coordinate
-                j: the column coordinate
+                i: integer, the row coordinate
+                j: integer, the column coordinate
+                can_be_rejected: boolean, block from overwriting cells directly
+
+            Returns:
+                bool if valid move
         """
+
+        if can_be_rejected and self.__logic._gameboard[j,i] != 0:
+            return False
+
+        self.__scoreboard.update(self.__logic.p1_score, self.__logic.p2_score,
+                                 self.__rounds, self.__to_place)
 
         # here we set the cell in logic
         self.__logic.set_cell(i+1, j+1, self.current_player)
@@ -59,8 +69,7 @@ class Board():
         else:
             target_tile.file = self.sprite_player_2
 
-        self.__scoreboard.update(self.__logic.p1_score, self.__logic.p2_score,
-                                 self.__rounds)
+        return True
 
     def fetch_next(self):
         """

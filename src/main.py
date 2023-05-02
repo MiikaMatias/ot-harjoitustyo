@@ -112,6 +112,8 @@ def main():
     score_2 = Text("0", 0.9,0.9,0.4, surface)
     score_2.rgb = (176,62,80)
 
+    title_rounds = Text("3", 0.03,0.5,0.3, surface)
+    title_rounds.rgb = (64,164,244)
     rounds = Text("10", 0.1,0.5,0.4, surface)
 # text
 
@@ -188,7 +190,7 @@ def main():
     pre_game = [rules_1, rules_2, rules_3, rules_4,
                 pregame_menu_button, pregame_game_button]
 
-    game = [score_1, score_2, rounds,
+    game = [score_1, score_2, rounds, title_rounds,
             *tiles]
 
     active_scene = menu
@@ -202,7 +204,7 @@ def main():
 
     gamelogic = GameOfLife(10, 10)
 
-    scoreboard = Scoreboard(score_1, score_2, rounds)
+    scoreboard = Scoreboard(score_1, score_2, rounds, title_rounds)
     board = Board(tiles, gamelogic, scoreboard)
 
     # --------------------------------------------------------
@@ -259,10 +261,10 @@ def main():
                                 active_scene = game
                     elif isinstance(image, Tile):
                         if image.check_hover():
-                            board.set(*image.coords)
-                            if board.check_turn_end():
-                                active_scene = menu
-                                board.reset()
+                            if board.set(*image.coords, True):
+                                if board.check_turn_end():
+                                    active_scene = menu
+                                    board.reset()
 
         # and lastly we check for special cases in respect
         # to the current active scene
