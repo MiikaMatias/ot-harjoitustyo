@@ -8,4 +8,5 @@
 |18.3| 6 | Made everything clean, added animations, sound effects to the menu |
 |24.3| 6 | Implemented the game of life portion of the project graphically; fixed scaling issues with tiles; documentation |
 |01.3| 3 | Refactored code; made text a separate class |
-|total|34||
+|02.3| 4 | Added some tests, made a score upkeep system|
+|total|38||

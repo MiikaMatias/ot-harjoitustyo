@@ -4,7 +4,6 @@ Game logic
 
 import numpy as np
 
-
 class GameOfLife():
     """
     This object represents the game of life in memory. It is an n by n array 
@@ -24,8 +23,12 @@ class GameOfLife():
                             col (int): width of screen
                             row (int): height of the screen
         """
-        self.width = col
-        self.height = row
+        self.__width = col
+        self.__height = row
+
+        self.p1_score = 0
+        self.p2_score = 0
+
         self._gameboard = np.array(
             [np.array([0 for _ in range(col)]) for _ in range(row)])
 
@@ -65,22 +68,26 @@ class GameOfLife():
         ret = 0
 
         if current == 1:
-            if twos > ones:     # first priority: do enemies outnumber allies
+            if twos > ones:     # first priority: do enemies outnumber allies; score to enemy
+                self.p2_score += 2
                 ret = 0
             elif ones >= 4:     # second priority: are there too many allies
                 ret = 0
             elif ones <= 1:     # third priority: are there too few allies
                 ret = 0
-            else:               # if not, set to alive
+            else:               # if not, set to alive; get score
+                self.p1_score += 1
                 ret = 1
         elif current == 2:      # same goes here
             if ones > twos:
+                self.p1_score += 2
                 ret = 0
             elif twos >= 4:
                 ret = 0
             elif twos <= 1:
                 ret = 0
             else:
+                self.p2_score += 1
                 ret = 2
         else:
             if ones == 3 and twos == 3:  # contested empty square?
@@ -92,7 +99,7 @@ class GameOfLife():
 
         return ret
 
-    def cells_in_radius(self, x_coord: int, y_coord: int):
+    def cells_in_radius(self, x_coord: int, y_coord: int) -> tuple[int, int]:
         """
         Detects how many 1 and 2 cells are nearby. Returns a tuple
 
@@ -116,10 +123,10 @@ class GameOfLife():
 
         # let's "do the thang"
         # we filter out impossible coordinates
-        possible_column_coordinates = list(filter(lambda x: 0 <= x < self.width,
+        possible_column_coordinates = list(filter(lambda x: 0 <= x < self.__width,
                                                   [x_coord-1, x_coord, x_coord+1]))
         possible_row_coordinates = list(
-            filter(lambda x: 0 <= x < self.height, [y_coord-1, y_coord, y_coord+1]))
+            filter(lambda x: 0 <= x < self.__height, [y_coord-1, y_coord, y_coord+1]))
 
         # go through the matrix
         for column in possible_column_coordinates:
@@ -134,8 +141,8 @@ class GameOfLife():
         Runs through the whole board and creates the next turn into next_turn_state. 
         Then replaces the current boardstate with that, and resets the next_turn_state. 
         """
-        for j in range(0, self.width):
-            for i in range(0, self.height):
+        for j in range(0, self.__width):
+            for i in range(0, self.__height):
                 current = self._gameboard[i, j]
                 ones, twos = self.cells_in_radius(j+1, i+1)
                 self.next_turn_state[i, j] = self.get_state(
@@ -145,26 +152,7 @@ class GameOfLife():
 
         # we reset the next turn state
         self.next_turn_state = np.array(
-            [np.array([0 for _ in range(self.width)]) for _ in range(self.height)])
+            [np.array([0 for _ in range(self.__width)]) for _ in range(self.__height)])
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return str(self._gameboard)
-
-
-if __name__ == '__main__':
-    gol = GameOfLife(12, 12)
-    gol.set_cell(1, 3, 1)
-    gol.set_cell(2, 4, 1)
-    gol.set_cell(3, 4, 1)
-    gol.set_cell(3, 3, 1)
-    gol.set_cell(3, 2, 1)
-    gol.set_cell(12, 9, 2)
-    gol.set_cell(11, 9, 2)
-    gol.set_cell(10, 9, 2)
-    gol.set_cell(10, 10, 2)
-    gol.set_cell(11, 11, 2)
-
-    for _ in range(20):
-        print(gol)
-        gol.flyby()
-        print()

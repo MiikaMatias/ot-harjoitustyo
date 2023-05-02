@@ -51,6 +51,7 @@ from gameobjects.menu.text import Text
 from gameobjects.game.tile import Tile
 from gameobjects.game.board import Board
 from logic.gameboard import GameOfLife
+from gameobjects.game.score import Scoreboard
 
 
 def main():
@@ -107,7 +108,11 @@ def main():
     rules_4 = Text("3) Most points win!", 0.4,0.325,0.4, surface)
 
     score_1 = Text("0", 0.9,0.1,0.4, surface)
+    score_1.rgb = (64,164,244)
     score_2 = Text("0", 0.9,0.9,0.4, surface)
+    score_2.rgb = (176,62,80)
+
+    rounds = Text("10", 0.1,0.5,0.4, surface)
 # text
 
 # buttons
@@ -154,7 +159,6 @@ def main():
 # tiles
     tiles = [Tile(surface, x, y, 1, 1) for x in np.arange(
         0.2, 0.9, 0.07) for y in np.arange(0.2, 0.9, 0.07)]
-
 # tiles
 
     # Screens!
@@ -184,7 +188,7 @@ def main():
     pre_game = [rules_1, rules_2, rules_3, rules_4,
                 pregame_menu_button, pregame_game_button]
 
-    game = [score_1, score_2,
+    game = [score_1, score_2, rounds,
             *tiles]
 
     active_scene = menu
@@ -197,7 +201,9 @@ def main():
     # logic module from /src/logic.
 
     gamelogic = GameOfLife(10, 10)
-    board = Board(tiles, gamelogic)
+
+    scoreboard = Scoreboard(score_1, score_2, rounds)
+    board = Board(tiles, gamelogic, scoreboard)
 
     # --------------------------------------------------------
 
@@ -254,6 +260,9 @@ def main():
                     elif isinstance(image, Tile):
                         if image.check_hover():
                             board.set(*image.coords)
+                            if board.check_turn_end():
+                                active_scene = menu
+                                board.reset()
 
         # and lastly we check for special cases in respect
         # to the current active scene

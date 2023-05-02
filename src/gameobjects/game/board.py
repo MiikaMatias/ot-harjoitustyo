@@ -6,24 +6,29 @@ between the pygame gui and this array.
 """
 
 from logic.gameboard import GameOfLife
-
+from gameobjects.game.score import Scoreboard
 
 class Board():
     """
     Represents an NxN gameboard.
     """
 
-    def __init__(self, tiles: list, game_logic: GameOfLife) -> None:
-        self.tiles = tiles
-        self.tile_amount = len(tiles)
-        self.logic = game_logic
+    def __init__(self, tiles: list, game_logic: GameOfLife, score: Scoreboard) -> None:
+        self.__scoreboard = score
+        self.__tiles = tiles
+        self.__logic = game_logic
+
         self.current_player = 1
+        self.__to_place = 3       # this variable gives the squares left
+
+        self.__rounds = 10        # represents rounds left
+
         self.size = 10
 
         for column in range(self.size):
             for row in range(self.size):
                 i = row*self.size + column
-                self.tiles[i].coords = (row, column)
+                self.__tiles[i].coords = (row, column)
 
         # we modify the default file of the tile through these
         self.sprite_dead = "src/assets/game_items/tile000_l.png"
@@ -42,10 +47,10 @@ class Board():
         """
 
         # here we set the cell in logic
-        self.logic.set_cell(i+1, j+1, self.current_player)
+        self.__logic.set_cell(i+1, j+1, self.current_player)
 
         # get tile
-        target_tile = self.tiles[i*self.size+j]
+        target_tile = self.__tiles[i*self.size+j]
 
         if self.current_player == 0:
             target_tile.file = self.sprite_dead
@@ -54,24 +59,54 @@ class Board():
         else:
             target_tile.file = self.sprite_player_2
 
-        self.end_turn()
+        self.__scoreboard.update(self.__logic.p1_score, self.__logic.p2_score,
+                                 self.__rounds)
 
     def fetch_next(self):
         """
         Gets the next state of the board; sets all tiles accordingly
         """
-        self.logic.flyby()
+
+        self.__logic.flyby()
+
+        old_player = self.current_player
 
         for i in range(self.size):
             for j in range(self.size):
-                self.current_player = self.logic._gameboard[i, j]
+                self.current_player = self.__logic._gameboard[i, j]
                 self.set(j, i)
 
-    def end_turn(self):
+        self.current_player = old_player
+
+    def end_round(self):
         """
-        Swaps player
+        Swaps player, continues round if __to_place == 1 
+        reduces __to_place by one otherwise
         """
         if self.current_player == 1:
             self.current_player = 2
         else:
             self.current_player = 1
+            self.__rounds -= 1
+            self.fetch_next()
+        self.__to_place = 3
+
+    def check_turn_end(self) -> bool:
+        """
+        Used to manage turn end timer
+
+            Returns
+                True if game over
+                False if game not over
+        """
+        if self.__to_place == 1:
+            self.end_round()
+        else:
+            self.__to_place -= 1
+
+        return self.__rounds == 0
+
+    def reset(self):
+        self.__scoreboard.p1_score = 0
+        self.__scoreboard.p2_score = 0
+        self.__rounds = 10
