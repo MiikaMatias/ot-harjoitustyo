@@ -9,7 +9,7 @@ Some design principles of this project:
       of a project instead of just executing through a ready lib. Hence you will
       see files like gameobject.py and image.py where I've basically redefined some
       of the things that already happen in pygame, and made them nicer to work with (for me)
-    
+
     - The definition document did state that I will be implementing online functionality.
       This will probably not be the case, as I will focus on working on a clean project.
 """
@@ -100,21 +100,21 @@ def main():
     # --------------------------------------------------------
 
 # text
-    title = Text("Game Of Life", 0.1,0.5,0.4, surface)
+    title = Text("Game Of Life", 0.1, 0.5, 0.4, surface)
 
-    rules_1 = Text("Rules:", 0.1,0.1,0.4, surface)
-    rules_2 = Text("1) Place tiles!", 0.2,0.25,0.4, surface)
-    rules_3 = Text("2) Press Go!", 0.3,0.225,0.4, surface)
-    rules_4 = Text("3) Most points win!", 0.4,0.325,0.4, surface)
+    rules_1 = Text("Rules:", 0.1, 0.1, 0.4, surface)
+    rules_2 = Text("1) Place tiles!", 0.2, 0.25, 0.4, surface)
+    rules_3 = Text("2) Press Go!", 0.3, 0.225, 0.4, surface)
+    rules_4 = Text("3) Most points win!", 0.4, 0.325, 0.4, surface)
 
-    score_1 = Text("0", 0.9,0.1,0.4, surface)
-    score_1.rgb = (64,164,244)
-    score_2 = Text("0", 0.9,0.9,0.4, surface)
-    score_2.rgb = (176,62,80)
+    score_1 = Text("0", 0.9, 0.1, 0.4, surface)
+    score_1.rgb = (64, 164, 244)
+    score_2 = Text("0", 0.9, 0.9, 0.4, surface)
+    score_2.rgb = (176, 62, 80)
 
-    title_rounds = Text("3", 0.03,0.5,0.3, surface)
-    title_rounds.rgb = (64,164,244)
-    rounds = Text("10", 0.1,0.5,0.4, surface)
+    title_rounds = Text("3", 0.03, 0.5, 0.3, surface)
+    title_rounds.rgb = (64, 164, 244)
+    rounds = Text("10", 0.1, 0.5, 0.4, surface)
 # text
 
 # buttons
@@ -133,7 +133,7 @@ def main():
                                  lambda: "settings")
     menu_options_button.text.text = "Options"
 
-    menu_quit_button = Button(surface, 0.5, 0.58, 0.35, 0.35,   
+    menu_quit_button = Button(surface, 0.5, 0.58, 0.35, 0.35,
                               f"{long_buttons}CGB02-green_L_btn.png",
                               f"{long_buttons}CGB02-blue_L_btn.png",
                               lambda: "quit")
@@ -241,7 +241,8 @@ def main():
             elif event.type == pg.VIDEORESIZE:
                 for image in active_scene:
                     if isinstance(image, Button):
-                        image.resize(event.dict['size'][0], event.dict['size'][1])
+                        image.resize(event.dict['size']
+                                     [0], event.dict['size'][1])
                     elif isinstance(image, Text):
                         image.resize()
             elif event.type == pg.MOUSEBUTTONUP:

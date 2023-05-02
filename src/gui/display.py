@@ -30,7 +30,8 @@ class Display():
         #                  all draw routines, which reduces graphical artifacts
         #                  such as flickering
         #       RESIZEABLE: Makes the screen dynamically resize
-        # source: https://stackoverflow.com/questions/29135147/what-do-hwsurface-and-doublebuf-do
+        # source:
+        # https://stackoverflow.com/questions/29135147/what-do-hwsurface-and-doublebuf-do
 
         self.surface = pygame.display.set_mode((width, height),
                                                HWSURFACE | DOUBLEBUF | RESIZABLE)  # pylint: disable=undefined-variable

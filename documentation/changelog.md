@@ -29,5 +29,7 @@
 
 - Created a text class that is used to draw text instead of text always being connected to a button
 - Added the following text: title; scores; round; how to play
-- Added a score tracker
+- Added a score tracker as well as a round tracker built to one
 - Added a test for contested tiles
+
+## Week 7

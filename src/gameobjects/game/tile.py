@@ -1,7 +1,7 @@
 """
 Represents a single cell in pygame. I could have inherited many
 functions to this class from "Button" but that did not feel sensible.
-After all, this is a game object, not a button   object. 
+After all, this is a game object, not a button   object.
 """
 
 import pygame as pg
@@ -36,29 +36,29 @@ class Tile(Image):
         This is the Tile specific version of resize, because tiles have to always be
         equal in width and height
         """
-        mean_scaling_factor = (self.scale_x+self.scale_y)/2
-        width, height = width*mean_scaling_factor, width*mean_scaling_factor
+        mean_scaling_factor = (self.scale_x + self.scale_y) / 2
+        width, height = width * mean_scaling_factor, width * mean_scaling_factor
         self.rect.size = width, height
 
-        width_to_height = self.screen.get_width()/self.screen.get_height()
-        height_to_width = self.screen.get_height()/self.screen.get_width()
+        width_to_height = self.screen.get_width() / self.screen.get_height()
+        height_to_width = self.screen.get_height() / self.screen.get_width()
 
         self.image = pg.transform.smoothscale(pg.image.load(self.file),
-                                              (((self.screen.get_width()*width_to_height +
-                                                 self.screen.get_height()*height_to_width)/2) *
-                                               mean_scaling_factor*self.scale_x,
-                                               ((self.screen.get_width()*width_to_height +
-                                                 self.screen.get_height()*height_to_width)/2) *
-                                               mean_scaling_factor*self.scale_y),)
+                                              (((self.screen.get_width() * width_to_height +
+                                                 self.screen.get_height() * height_to_width) / 2) *
+                                               mean_scaling_factor * self.scale_x,
+                                               ((self.screen.get_width() * width_to_height +
+                                                 self.screen.get_height() * height_to_width) / 2) *
+                                               mean_scaling_factor * self.scale_y),)
 
-        self.image.get_rect().center = (self.screen.get_width()*height_to_width * self.col,
-                                        self.screen.get_height()*width_to_height*self.row)
+        self.image.get_rect().center = (self.screen.get_width() * height_to_width * self.col,
+                                        self.screen.get_height() * width_to_height * self.row)
 
     def check_hover(self):
         """
-        Checks if mouse is hovering on object or clicking it. 
+        Checks if mouse is hovering on object or clicking it.
 
-        Returns:    
+        Returns:
                 bool: mouse on tile
         """
 
@@ -79,18 +79,18 @@ class Tile(Image):
         Here too we have to mess with the scaling to allow for equal
         width and height
         """
-        mean_scaling_factor = (self.scale_x+self.scale_y)/2
+        mean_scaling_factor = (self.scale_x + self.scale_y) / 2
 
-        width_to_height = self.screen.get_width()/self.screen.get_height()
-        height_to_width = self.screen.get_height()/self.screen.get_width()
+        width_to_height = self.screen.get_width() / self.screen.get_height()
+        height_to_width = self.screen.get_height() / self.screen.get_width()
 
         self.image = pg.transform.smoothscale(pg.image.load(file),
-                                              (((self.screen.get_width()*width_to_height +
-                                                 self.screen.get_height()*height_to_width)/2) *
-                                               mean_scaling_factor*scale,
-                                               ((self.screen.get_width()*width_to_height +
-                                                 self.screen.get_height()*height_to_width)/2) *
-                                               mean_scaling_factor*scale),)
+                                              (((self.screen.get_width() * width_to_height +
+                                                 self.screen.get_height() * height_to_width) / 2) *
+                                               mean_scaling_factor * scale,
+                                               ((self.screen.get_width() * width_to_height +
+                                                 self.screen.get_height() * height_to_width) / 2) *
+                                               mean_scaling_factor * scale),)
 
-        self.image.get_rect().center = (self.screen.get_width()*width_to_height * self.col,
-                                        self.screen.get_height()*height_to_width*self.row)
+        self.image.get_rect().center = (self.screen.get_width() * width_to_height * self.col,
+                                        self.screen.get_height() * height_to_width * self.row)

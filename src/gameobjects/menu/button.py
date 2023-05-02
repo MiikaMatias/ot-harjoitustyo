@@ -10,7 +10,7 @@ class Button(Image):
     """
     Inherits from: Image
     Present in scene: menu, settings, pre_game, game
-    Functionality: 
+    Functionality:
                 - when pressed, calls a function; plays sound effect
                 - when hovered over, changes appearance; plays sound effect
                 - when not hovered over, if appearance is changed, change to normal
@@ -38,8 +38,8 @@ class Button(Image):
         """
         Draws the Button in game based on the values of self.rect
         """
-        self.rect.center = (self.screen.get_width()*self.col,
-                            self.screen.get_height()*self.row)
+        self.rect.center = (self.screen.get_width() * self.col,
+                            self.screen.get_height() * self.row)
         self.screen.blit(self.image, (self.rect.x, self.rect.y))
         self.text.draw()
 
@@ -64,11 +64,11 @@ class Button(Image):
                 scale: the scaling we do to standard size
         """
         self.image = pg.transform.smoothscale(pg.image.load(file),
-                                              (self.screen.get_width()*self.scale_x*scale,
-                                               self.screen.get_height()*self.scale_y*scale),)
+                                              (self.screen.get_width() * self.scale_x * scale,
+                                               self.screen.get_height() * self.scale_y * scale),)
 
         self.image.get_rect().center = (self.screen.get_width() *
-                                        self.col, self.screen.get_height()*self.row)
+                                        self.col, self.screen.get_height() * self.row)
 
     def activate(self):
         """
@@ -76,20 +76,3 @@ class Button(Image):
         """
         pg.mixer.Sound.play(self.click_sound)
         return self.function()
-
-    def resize(self, width, height):
-        """
-        Called upon VIDEORESIZE event, where loads a new image from assets and
-        resizes it according to screen parameters. This is done to keep the image
-        quality good.
-
-                Parameters:
-                        width: screen width
-                        height: screen height
-        """
-        width, height = width*self.scale_x, height*self.scale_y
-        self.image = pg.transform.smoothscale(pg.image.load(self.file),
-                                              (width, height),)
-        self.rect.size = width, height
-        self.image.get_rect().center = (self.screen.get_width() *
-                                        self.col, self.screen.get_height()*self.row)

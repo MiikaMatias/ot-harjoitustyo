@@ -2,21 +2,28 @@
 Game logic
 """
 
+# pylint: disable=too-many-branches
+# pylint: disable=too-many-statements
+# here the representation of rules as branches
+# is intuitively quite clear (get_state())
+# so I feel no need to have pylint complain about it
+
 import numpy as np
+
 
 class GameOfLife():
     """
-    This object represents the game of life in memory. It is an n by n array 
-    of three different states[2,0,1] for each of it's elements. These elements 
-    abide by game of life rules, wherein the 2 represents player 1 and 1 represents player 2. 
+    This object represents the game of life in memory. It is an n by n array
+    of three different states[2,0,1] for each of it's elements. These elements
+    abide by game of life rules, wherein the 2 represents player 1 and 1 represents player 2.
 
-    This object will be connected to the pygame GUI. 
+    This object will be connected to the pygame GUI.
     """
 
     def __init__(self, col: int, row: int):
         """
-        Initialize the Game of Life instance. We use numpy for the gameboard 
-        because it is just better than an ordinary list in python, due to 
+        Initialize the Game of Life instance. We use numpy for the gameboard
+        because it is just better than an ordinary list in python, due to
         nondynamic typing, extended functionality and such.
 
                     Parameters:
@@ -29,7 +36,7 @@ class GameOfLife():
         self.p1_score = 0
         self.p2_score = 0
 
-        self._gameboard = np.array(
+        self.gameboard = np.array(
             [np.array([0 for _ in range(col)]) for _ in range(row)])
 
         # this is what the next turn will become
@@ -47,7 +54,7 @@ class GameOfLife():
                             state (int): 2,0,1
         """
         if state in [2, 0, 1]:
-            self._gameboard[(row-1), (col-1)] = state
+            self.gameboard[(row - 1), (col - 1)] = state
         else:
             raise ValueError(
                 f"State of {state} is invalid, must be in [2,0,1]")
@@ -110,49 +117,49 @@ class GameOfLife():
                     Returns:
                             (ones (int),twos (int)) (tuple): ones and twos tuple
         """
-        x_coord, y_coord = (x_coord-1), (y_coord-1)
+        x_coord, y_coord = (x_coord - 1), (y_coord - 1)
 
         # this is what we return
         ones = 0
         twos = 0
 
-        if self._gameboard[y_coord, x_coord] == 1:
+        if self.gameboard[y_coord, x_coord] == 1:
             ones -= 1
-        if self._gameboard[y_coord, x_coord] == 2:
+        if self.gameboard[y_coord, x_coord] == 2:
             twos -= 1
 
         # let's "do the thang"
         # we filter out impossible coordinates
         possible_column_coordinates = list(filter(lambda x: 0 <= x < self.__width,
-                                                  [x_coord-1, x_coord, x_coord+1]))
+                                                  [x_coord - 1, x_coord, x_coord + 1]))
         possible_row_coordinates = list(
-            filter(lambda x: 0 <= x < self.__height, [y_coord-1, y_coord, y_coord+1]))
+            filter(lambda x: 0 <= x < self.__height, [y_coord - 1, y_coord, y_coord + 1]))
 
         # go through the matrix
         for column in possible_column_coordinates:
             for row in possible_row_coordinates:
-                ones += self._gameboard[row, column] == 1
-                twos += self._gameboard[row, column] == 2
+                ones += self.gameboard[row, column] == 1
+                twos += self.gameboard[row, column] == 2
 
         return ones, twos
 
     def flyby(self):
         """
-        Runs through the whole board and creates the next turn into next_turn_state. 
-        Then replaces the current boardstate with that, and resets the next_turn_state. 
+        Runs through the whole board and creates the next turn into next_turn_state.
+        Then replaces the current boardstate with that, and resets the next_turn_state.
         """
         for j in range(0, self.__width):
             for i in range(0, self.__height):
-                current = self._gameboard[i, j]
-                ones, twos = self.cells_in_radius(j+1, i+1)
+                current = self.gameboard[i, j]
+                ones, twos = self.cells_in_radius(j + 1, i + 1)
                 self.next_turn_state[i, j] = self.get_state(
                     current, ones, twos)
 
-        self._gameboard = self.next_turn_state
+        self.gameboard = self.next_turn_state
 
         # we reset the next turn state
         self.next_turn_state = np.array(
             [np.array([0 for _ in range(self.__width)]) for _ in range(self.__height)])
 
     def __repr__(self) -> str:
-        return str(self._gameboard)
+        return str(self.gameboard)
