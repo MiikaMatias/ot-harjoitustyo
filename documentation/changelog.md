@@ -24,3 +24,10 @@
 - Messed with the screen a bit, trying to make tiling work well. Succeeded to some extent. 
 - Wrote documentation
 - Added tasks that were missing in the prior update
+
+## Week 6
+
+- Created a text class that is used to draw text instead of text always being connected to a button
+- Added the following text: title; scores; round; how to play
+- Added a score tracker
+- Added a test for contested tiles

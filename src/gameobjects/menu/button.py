@@ -3,6 +3,7 @@ Contains the Button gameobject
 """
 import pygame as pg
 from gui.image import Image
+from .text import Text
 
 
 class Button(Image):
@@ -16,20 +17,15 @@ class Button(Image):
                 - what does the button say
     """
 
-    def __init__(self, screen, col: int, row: int, scale_x: int,
+    def __init__(self, screen, col: float, row: float, scale_x: int,
                  scale_y: int, file: str, pressed: str, function_when_pressed) -> None:
         super().__init__(screen, col, row, scale_x, scale_y, file)
 
         self.pressed_file = pressed
         self.function = function_when_pressed
-        pg.font.init()  # you have to call this at the start,
-        # if you want to use this module.
 
         # we also define some text for a button
-        self.scale_factor = self.screen.get_width()*0.2
-        self.font = pg.font.Font(
-            'src/assets/font/Lambda-Regular.ttf', int(self.scale_x*(self.scale_factor)))
-        self.text = "null"
+        self.text = Text("null", row, col, self.scale_x, self.screen)
 
         # we define sounds too!
         self.click_sound = pg.mixer.Sound(
@@ -38,16 +34,14 @@ class Button(Image):
         # here we define a cooldown variable for sounds
         self.cooldown_hover = True
 
-    def text_draw(self):
+    def draw(self):
         """
-        Draw the text surface
+        Draws the Button in game based on the values of self.rect
         """
-        self.font = pg.font.Font('src/assets/font/Lambda-Regular.ttf',
-                                 int(self.scale_x*(self.scale_factor)))
-        text = self.font.render(self.text, 1, (255, 255, 255))
-        text_rect = text.get_rect(
-            center=(self.col*self.screen.get_width(), self.row*self.screen.get_height()))
-        self.screen.blit(text, text_rect)
+        self.rect.center = (self.screen.get_width()*self.col,
+                            self.screen.get_height()*self.row)
+        self.screen.blit(self.image, (self.rect.x, self.rect.y))
+        self.text.draw()
 
     def check_hover(self):
         """
@@ -83,5 +77,19 @@ class Button(Image):
         pg.mixer.Sound.play(self.click_sound)
         return self.function()
 
-    def text_resize(self):
-        self.scale_factor = self.screen.get_width()*0.17
+    def resize(self, width, height):
+        """
+        Called upon VIDEORESIZE event, where loads a new image from assets and
+        resizes it according to screen parameters. This is done to keep the image
+        quality good.
+
+                Parameters:
+                        width: screen width
+                        height: screen height
+        """
+        width, height = width*self.scale_x, height*self.scale_y
+        self.image = pg.transform.smoothscale(pg.image.load(self.file),
+                                              (width, height),)
+        self.rect.size = width, height
+        self.image.get_rect().center = (self.screen.get_width() *
+                                        self.col, self.screen.get_height()*self.row)

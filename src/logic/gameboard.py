@@ -26,7 +26,7 @@ class GameOfLife():
         """
         self.width = col
         self.height = row
-        self.gameboard = np.array(
+        self._gameboard = np.array(
             [np.array([0 for _ in range(col)]) for _ in range(row)])
 
         # this is what the next turn will become
@@ -44,7 +44,7 @@ class GameOfLife():
                             state (int): 2,0,1
         """
         if state in [2, 0, 1]:
-            self.gameboard[(row-1), (col-1)] = state
+            self._gameboard[(row-1), (col-1)] = state
         else:
             raise ValueError(
                 f"State of {state} is invalid, must be in [2,0,1]")
@@ -83,7 +83,7 @@ class GameOfLife():
             else:
                 ret = 2
         else:
-            if ones == 3 and twos == 3:  # contested?
+            if ones == 3 and twos == 3:  # contested empty square?
                 ret = 0
             elif ones == 3:
                 ret = 1
@@ -109,9 +109,9 @@ class GameOfLife():
         ones = 0
         twos = 0
 
-        if self.gameboard[y_coord, x_coord] == 1:
+        if self._gameboard[y_coord, x_coord] == 1:
             ones -= 1
-        if self.gameboard[y_coord, x_coord] == 2:
+        if self._gameboard[y_coord, x_coord] == 2:
             twos -= 1
 
         # let's "do the thang"
@@ -124,8 +124,8 @@ class GameOfLife():
         # go through the matrix
         for column in possible_column_coordinates:
             for row in possible_row_coordinates:
-                ones += self.gameboard[row, column] == 1
-                twos += self.gameboard[row, column] == 2
+                ones += self._gameboard[row, column] == 1
+                twos += self._gameboard[row, column] == 2
 
         return ones, twos
 
@@ -136,19 +136,19 @@ class GameOfLife():
         """
         for j in range(0, self.width):
             for i in range(0, self.height):
-                current = self.gameboard[i, j]
+                current = self._gameboard[i, j]
                 ones, twos = self.cells_in_radius(j+1, i+1)
                 self.next_turn_state[i, j] = self.get_state(
                     current, ones, twos)
 
-        self.gameboard = self.next_turn_state
+        self._gameboard = self.next_turn_state
 
         # we reset the next turn state
         self.next_turn_state = np.array(
             [np.array([0 for _ in range(self.width)]) for _ in range(self.height)])
 
     def __repr__(self):
-        return str(self.gameboard)
+        return str(self._gameboard)
 
 
 if __name__ == '__main__':

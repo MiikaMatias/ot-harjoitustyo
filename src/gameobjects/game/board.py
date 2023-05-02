@@ -64,7 +64,7 @@ class Board():
 
         for i in range(self.size):
             for j in range(self.size):
-                self.current_player = self.logic.gameboard[i, j]
+                self.current_player = self.logic._gameboard[i, j]
                 self.set(j, i)
 
     def end_turn(self):

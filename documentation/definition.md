@@ -15,8 +15,8 @@ There are three or four initially planned UI-states:
 ![](https://github.com/MiikaMatias/ot-harjoitustyo/blob/main/documentation/images/outline.png)
 
 1) Menu; connects to main game through game rule configuration screen; connects to options (done)
-2) Game screen | rule configuration screen; game rules can be modified in rule config. Different configurations can be saved into a database; rule config connects to the main game and maybe settings; game connects to settings and the menu through a game-over event.
-3) Settings; includes sound sliders and some other options; maybe credits.
+2) Game screen (done) | rule configuration screen; game rules can be modified in rule config. Different configurations can be saved into a database; rule config connects to the main game and maybe settings; game connects to settings and the menu through a game-over event.
+3) Settings (done); includes sound sliders and some other options; maybe credits.
 
 ## Base version
 The player is able to start the game, and configure it's rules. Afterwards, the players will play against each other. Settings may be modified during any point. Game may be quit during any point. Rule presets can be saved. The game mechanics will be nice and the implementation will be slick. 

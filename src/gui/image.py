@@ -3,7 +3,7 @@ import pygame as pg
 
 class Image():
 
-    def __init__(self, screen, col: int, row: int, scale_x: int,
+    def __init__(self, screen, col: float, row: float, scale_x: int,
                  scale_y: int, file: str) -> None:
         """
         Describes an Image in the game. Initialized with image which is 

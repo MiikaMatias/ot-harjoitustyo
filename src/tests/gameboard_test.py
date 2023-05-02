@@ -25,7 +25,7 @@ class TestGameboard(unittest.TestCase):
                       [0, 0, 0, 0],
                       [0, 0, 0, 0],
                       [0, 0, 0, 0]])
-        self.assertEqual(True, np.array_equal(self.gameboard.gameboard, a))
+        self.assertEqual(True, np.array_equal(self.gameboard._gameboard, a))
 
     def test_find_friends_corner_top(self):
         self.gameboard.set_cell(1, 1, 1)
@@ -154,7 +154,7 @@ class TestGameboard(unittest.TestCase):
                       [0, 1, 1, 0],
                       [0, 1, 1, 1],
                       [0, 0, 0, 0]])
-        self.assertEqual(True, np.array_equal(self.gameboard.gameboard, b))
+        self.assertEqual(True, np.array_equal(self.gameboard._gameboard, b))
 
         # encore
         self.gameboard.flyby()
@@ -162,7 +162,7 @@ class TestGameboard(unittest.TestCase):
                       [0, 1, 0, 1],
                       [0, 1, 0, 1],
                       [0, 0, 1, 0]])
-        self.assertEqual(True, np.array_equal(self.gameboard.gameboard, b))
+        self.assertEqual(True, np.array_equal(self.gameboard._gameboard, b))
 
         # encore
         self.gameboard.flyby()
@@ -170,7 +170,7 @@ class TestGameboard(unittest.TestCase):
                       [0, 0, 0, 0],
                       [0, 1, 0, 1],
                       [0, 0, 1, 0]])
-        self.assertEqual(True, np.array_equal(self.gameboard.gameboard, b))
+        self.assertEqual(True, np.array_equal(self.gameboard._gameboard, b))
 
         # encore
         self.gameboard.flyby()
@@ -178,7 +178,7 @@ class TestGameboard(unittest.TestCase):
                       [0, 0, 0, 0],
                       [0, 0, 1, 0],
                       [0, 0, 1, 0]])
-        self.assertEqual(True, np.array_equal(self.gameboard.gameboard, b))
+        self.assertEqual(True, np.array_equal(self.gameboard._gameboard, b))
 
         # encore
         self.gameboard.flyby()
@@ -186,7 +186,7 @@ class TestGameboard(unittest.TestCase):
                       [0, 0, 0, 0],
                       [0, 0, 0, 0],
                       [0, 0, 0, 0]])
-        self.assertEqual(True, np.array_equal(self.gameboard.gameboard, b))
+        self.assertEqual(True, np.array_equal(self.gameboard._gameboard, b))
 
     def test_flyby_twos(self):
         self.gameboard.set_cell(2, 2, 2)
@@ -203,7 +203,7 @@ class TestGameboard(unittest.TestCase):
                       [0, 2, 2, 0],
                       [0, 2, 2, 2],
                       [0, 0, 0, 0]])
-        self.assertEqual(True, np.array_equal(self.gameboard.gameboard, b))
+        self.assertEqual(True, np.array_equal(self.gameboard._gameboard, b))
 
         # encore
         self.gameboard.flyby()
@@ -211,7 +211,7 @@ class TestGameboard(unittest.TestCase):
                       [0, 2, 0, 2],
                       [0, 2, 0, 2],
                       [0, 0, 2, 0]])
-        self.assertEqual(True, np.array_equal(self.gameboard.gameboard, b))
+        self.assertEqual(True, np.array_equal(self.gameboard._gameboard, b))
 
         # encore
         self.gameboard.flyby()
@@ -219,7 +219,7 @@ class TestGameboard(unittest.TestCase):
                       [0, 0, 0, 0],
                       [0, 2, 0, 2],
                       [0, 0, 2, 0]])
-        self.assertEqual(True, np.array_equal(self.gameboard.gameboard, b))
+        self.assertEqual(True, np.array_equal(self.gameboard._gameboard, b))
 
         # encore
         self.gameboard.flyby()
@@ -227,7 +227,7 @@ class TestGameboard(unittest.TestCase):
                       [0, 0, 0, 0],
                       [0, 0, 2, 0],
                       [0, 0, 2, 0]])
-        self.assertEqual(True, np.array_equal(self.gameboard.gameboard, b))
+        self.assertEqual(True, np.array_equal(self.gameboard._gameboard, b))
 
         # encore
         self.gameboard.flyby()
@@ -235,4 +235,24 @@ class TestGameboard(unittest.TestCase):
                       [0, 0, 0, 0],
                       [0, 0, 0, 0],
                       [0, 0, 0, 0]])
-        self.assertEqual(True, np.array_equal(self.gameboard.gameboard, b))
+        self.assertEqual(True, np.array_equal(self.gameboard._gameboard, b))
+
+    def test_contested(self):
+        self.gameboard.set_cell(4, 1, 2)
+        self.gameboard.set_cell(4, 2, 2)
+        self.gameboard.set_cell(4, 3, 2)
+        self.gameboard.set_cell(4, 4, 2)
+        self.gameboard.set_cell(2, 1, 1)
+        self.gameboard.set_cell(2, 2, 1)
+        self.gameboard.set_cell(2, 3, 1)
+        self.gameboard.set_cell(2, 4, 1)
+        a = np.array([[0, 1, 0, 2],
+                      [0, 1, 0, 2],  # visual aid
+                      [0, 1, 0, 2],
+                      [0, 1, 0, 2]])
+        self.gameboard.flyby()
+        b = np.array([[0, 0, 0, 0],
+                      [1, 1, 0, 2],
+                      [1, 1, 0, 2],
+                      [0, 0, 0, 0]])
+        self.assertEqual(True, np.array_equal(self.gameboard._gameboard, b))

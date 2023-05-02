@@ -7,4 +7,5 @@
 |17.3| 6 | Fleshed out some foundational classes, set up menu structure |
 |18.3| 6 | Made everything clean, added animations, sound effects to the menu |
 |24.3| 6 | Implemented the game of life portion of the project graphically; fixed scaling issues with tiles; documentation |
-|total|31||
+|01.3| 3 | Refactored code; made text a separate class |
+|total|34||

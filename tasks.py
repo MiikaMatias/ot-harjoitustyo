@@ -5,13 +5,19 @@ def start(ctx):
     """
     Run tests, and then start the program
     """
+    
+    # The idea with running tests before the program is just for
+    # development purposes; it's handy to always run tests when 
+    # starting the application, since that way bugs that may be 
+    # hidden behind actions are more likely to be found initially
+
     ctx.run("poetry run invoke test")
     ctx.run("python3 src/main.py", pty=True)
 
 @task
 def test(ctx):
     """
-    Run tests, and then start the program
+    Run tests
     """
     ctx.run("python3 src/test.py", pty=True)
 

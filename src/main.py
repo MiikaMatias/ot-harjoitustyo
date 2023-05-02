@@ -47,6 +47,7 @@ import numpy as np
 from pygame.locals import *  # pylint: disable=unused-wildcard-import
 from gui.display import Display
 from gameobjects.menu.button import Button
+from gameobjects.menu.text import Text
 from gameobjects.game.tile import Tile
 from gameobjects.game.board import Board
 from logic.gameboard import GameOfLife
@@ -97,6 +98,18 @@ def main():
     # we can even highlight objects and see them in scenes!
     # --------------------------------------------------------
 
+# text
+    title = Text("Game Of Life", 0.1,0.5,0.4, surface)
+
+    rules_1 = Text("Rules:", 0.1,0.1,0.4, surface)
+    rules_2 = Text("1) Place tiles!", 0.2,0.25,0.4, surface)
+    rules_3 = Text("2) Press Go!", 0.3,0.225,0.4, surface)
+    rules_4 = Text("3) Most points win!", 0.4,0.325,0.4, surface)
+
+    score_1 = Text("0", 0.9,0.1,0.4, surface)
+    score_2 = Text("0", 0.9,0.9,0.4, surface)
+# text
+
 # buttons
     long_buttons = "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/"
     game = "src/assets/game_items/"
@@ -105,37 +118,37 @@ def main():
                               f"{long_buttons}CGB02-green_L_btn.png",
                               f"{long_buttons}CGB02-blue_L_btn.png",
                               lambda: "pregame")
-    menu_play_button.text = "Play"
+    menu_play_button.text.text = "Play"
 
     menu_options_button = Button(surface, 0.5, 0.45, 0.35, 0.35,
                                  f"{long_buttons}CGB02-green_L_btn.png",
                                  f"{long_buttons}CGB02-blue_L_btn.png",
                                  lambda: "settings")
-    menu_options_button.text = "Options"
+    menu_options_button.text.text = "Options"
 
-    menu_quit_button = Button(surface, 0.5, 0.58, 0.35, 0.35,
+    menu_quit_button = Button(surface, 0.5, 0.58, 0.35, 0.35,   
                               f"{long_buttons}CGB02-green_L_btn.png",
                               f"{long_buttons}CGB02-blue_L_btn.png",
                               lambda: "quit")
-    menu_quit_button.text = "Quit"
+    menu_quit_button.text.text = "Quit"
 
     settings_menu_button = Button(surface, 0.5, 0.20, 0.45, 0.45,
                                   f"{long_buttons}CGB02-green_L_btn.png",
                                   f"{long_buttons}CGB02-blue_L_btn.png",
                                   lambda: "menu")
-    settings_menu_button.text = "Main Menu"
+    settings_menu_button.text.text = "Main Menu"
 
     pregame_menu_button = Button(surface, 0.1, 0.90, 0.25, 0.25,
                                  f"{long_buttons}CGB02-green_L_btn.png",
                                  f"{long_buttons}CGB02-blue_L_btn.png",
                                  lambda: "menu")
-    pregame_menu_button.text = "Main Menu"
+    pregame_menu_button.text.text = "Main Menu"
 
     pregame_game_button = Button(surface, 0.8, 0.1, 0.6, 0.6,
                                  f"{long_buttons}CGB02-green_L_btn.png",
                                  f"{long_buttons}CGB02-blue_L_btn.png",
                                  lambda: "game")
-    pregame_game_button.text = "Start!"
+    pregame_game_button.text.text = "Start!"
 # buttons
 
 # tiles
@@ -162,10 +175,18 @@ def main():
     # to 20+ game objects, this would be undoable. However I'm not living in that world
     #  > : ^ ) (yet)
 
-    menu = [menu_play_button, menu_options_button, menu_quit_button]
+    menu = [title,
+            menu_play_button, menu_options_button, menu_quit_button
+            ]
+
     settings = [settings_menu_button]
-    pre_game = [pregame_menu_button, pregame_game_button]
-    game = [*tiles]
+
+    pre_game = [rules_1, rules_2, rules_3, rules_4,
+                pregame_menu_button, pregame_game_button]
+
+    game = [score_1, score_2,
+            *tiles]
+
     active_scene = menu
 
     # --------------------------------------------------------
@@ -175,7 +196,7 @@ def main():
     # This guy holds all of the game logic within in. For more information check the
     # logic module from /src/logic.
 
-    gamelogic = GameOfLife(10, 10)  # pylint: disable=unused-variable
+    gamelogic = GameOfLife(10, 10)
     board = Board(tiles, gamelogic)
 
     # --------------------------------------------------------
@@ -211,9 +232,10 @@ def main():
                     board.fetch_next()
             elif event.type == pg.VIDEORESIZE:
                 for image in active_scene:
-                    image.resize(event.dict['size'][0], event.dict['size'][1])
                     if isinstance(image, Button):
-                        image.text_resize()
+                        image.resize(event.dict['size'][0], event.dict['size'][1])
+                    elif isinstance(image, Text):
+                        image.resize()
             elif event.type == pg.MOUSEBUTTONUP:
                 for image in active_scene:
                     if isinstance(image, Button):
