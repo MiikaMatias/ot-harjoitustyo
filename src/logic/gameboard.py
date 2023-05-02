@@ -163,3 +163,7 @@ class GameOfLife():
 
     def __repr__(self) -> str:
         return str(self.gameboard)
+
+    def reset_board(self):
+        self.gameboard = np.array(
+            [np.array([0 for _ in range(self.__width)]) for _ in range(self.__height)])

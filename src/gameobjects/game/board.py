@@ -118,6 +118,10 @@ class Board():
         return self.__rounds == 0
 
     def reset(self):
-        self.__scoreboard.p1_score = 0
-        self.__scoreboard.p2_score = 0
+        self.__logic.reset_board()
+        self.__logic.p1_score = 0
+        self.__logic.p2_score = 0
         self.__rounds = 10
+        self.__scoreboard.update(self.__logic.p1_score, self.__logic.p2_score,
+                                 self.__rounds, self.__to_place)
+        self.fetch_next()
