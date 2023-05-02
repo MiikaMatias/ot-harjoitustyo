@@ -104,7 +104,7 @@ def main():
 
     rules_1 = Text("Rules:", 0.1, 0.1, 0.4, surface)
     rules_2 = Text("1) Place tiles!", 0.2, 0.25, 0.4, surface)
-    rules_3 = Text("2) Press Go!", 0.3, 0.225, 0.4, surface)
+    rules_3 = Text("2) State changes!", 0.3, 0.314, 0.4, surface)
     rules_4 = Text("3) Most points win!", 0.4, 0.325, 0.4, surface)
 
     score_1 = Text("0", 0.9, 0.1, 0.4, surface)
@@ -115,6 +115,8 @@ def main():
     title_rounds = Text("3", 0.03, 0.5, 0.3, surface)
     title_rounds.rgb = (64, 164, 244)
     rounds = Text("10", 0.1, 0.5, 0.4, surface)
+
+    victory_text = Text("ebin", 0.03, 0.5, 0.3, surface)
 # text
 
 # buttons
@@ -192,6 +194,9 @@ def main():
 
     game = [score_1, score_2, rounds, title_rounds,
             *tiles]
+    
+    victory = [victory_text,
+               pregame_menu_button]
 
     active_scene = menu
 
@@ -236,8 +241,6 @@ def main():
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
                     running = False
-                elif event.key == pg.K_SPACE:
-                    board.fetch_next()
             elif event.type == pg.VIDEORESIZE:
                 for image in active_scene:
                     if isinstance(image, Button):
@@ -264,7 +267,10 @@ def main():
                         if image.check_hover():
                             if board.set(*image.coords, True):
                                 if board.check_turn_end():
-                                    active_scene = menu
+                                    if board.winner == 1: victory_text.text = "Blue Won!"
+                                    elif board.winner == 2: victory_text.text = "Red Won!"
+                                    else: victory_text.text = "Tie!"
+                                    active_scene = victory
                                     board.reset()
 
         # and lastly we check for special cases in respect
@@ -282,6 +288,8 @@ def main():
             for obj in game:
                 if isinstance(obj, Tile):
                     obj.check_hover()
+        elif active_scene == victory:
+            pregame_menu_button.check_hover()
 
         pg.display.update()
 

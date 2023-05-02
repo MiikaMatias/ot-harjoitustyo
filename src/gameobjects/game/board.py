@@ -11,7 +11,8 @@ from gameobjects.game.score import Scoreboard
 
 class Board():
     """
-    Represents an NxN gameboard.
+    Represents an NxN gameboard. Talks to game logic and the gui, 
+    and communicates between them. Also tracks rounds, score and such.
     """
 
     def __init__(self, tiles: list, game_logic: GameOfLife,
@@ -19,13 +20,12 @@ class Board():
         self.__scoreboard = score
         self.__tiles = tiles
         self.__logic = game_logic
-
-        self.current_player = 1
         self.__to_place = 3       # this variable gives the squares left
-
         self.__rounds = 10        # represents rounds left
 
+        self.current_player = 1
         self.size = 10
+        self.winner = 0
 
         for column in range(self.size):
             for row in range(self.size):
@@ -79,6 +79,12 @@ class Board():
         """
 
         self.__logic.flyby()
+        if self.__logic.p1_score > self.__logic.p2_score:
+            self.winner = 1
+        elif self.__logic.p1_score < self.__logic.p2_score:
+            self.winner = 2
+        else:
+            self.winner = 0
 
         old_player = self.current_player
 

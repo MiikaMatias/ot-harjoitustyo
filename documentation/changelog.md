@@ -33,3 +33,5 @@
 - Added a test for contested tiles
 
 ## Week 7
+
+- Added victory screen
