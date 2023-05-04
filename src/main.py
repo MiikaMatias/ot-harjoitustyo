@@ -88,7 +88,7 @@ def main():
     # Here we define every game object we will use
     # There are valid arguments for moving this stuff into an external file,
     # but as the amount of non-trivial (copied; tiles, probably abstracted into a
-    # larger class later) game objects we need to define seems to be small (<20),
+    # larger class later) game objects we need to define seems to be small,
     # I'm personally fine holding these here at the moment. If the instructor
     # deems this as bad practice, then they can tell me.
     #
@@ -117,6 +117,8 @@ def main():
     rounds = Text("10", 0.1, 0.5, 0.4, surface)
 
     victory_text = Text("ebin", 0.03, 0.5, 0.3, surface)
+    hops_next_end_turn = Text("1", 0.07, 0.59, 0.175, surface)
+    hops_next_end_turn.rgb = (125,125,125)
 # text
 
 # buttons
@@ -180,7 +182,7 @@ def main():
     # smack in down into a scene, run the game and see it there. This also speaks for
     # defining gameobjects in the main script, and not in a separate file. Of course
     # in a hypothetical world where this project is scaled in a manner where we get
-    # to 20+ game objects, this would be undoable. However I'm not living in that world
+    # a lot of game objects, this would be undoable. However I'm not living in that world
     #  > : ^ ) (yet)
 
     menu = [title,
@@ -192,7 +194,7 @@ def main():
     pre_game = [rules_1, rules_2, rules_3, rules_4,
                 pregame_menu_button, pregame_game_button]
 
-    game = [score_1, score_2, rounds, title_rounds,
+    game = [score_1, score_2, rounds, title_rounds, hops_next_end_turn,
             *tiles]
     
     victory = [victory_text,
@@ -209,7 +211,7 @@ def main():
 
     gamelogic = GameOfLife(10, 10)
 
-    scoreboard = Scoreboard(score_1, score_2, rounds, title_rounds)
+    scoreboard = Scoreboard(score_1, score_2, rounds, title_rounds, hops_next_end_turn)
     board = Board(tiles, gamelogic, scoreboard)
 
     # --------------------------------------------------------

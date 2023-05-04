@@ -10,4 +10,5 @@
 |01.3| 3 | Refactored code; made text a separate class |
 |02.3| 4 | Added some tests, made a score upkeep system|
 |03.3| 3 | Added victory screen|
-|total|41||
+|04.3| 2 | Modified gamerules|
+|total|43||

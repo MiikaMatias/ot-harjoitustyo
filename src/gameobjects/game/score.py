@@ -1,5 +1,5 @@
 from gameobjects.menu.text import Text
-
+from math import sqrt
 
 class Scoreboard:
 
@@ -8,13 +8,14 @@ class Scoreboard:
     """
 
     def __init__(self, scoretext_1: Text, scoretext_2: Text,
-                 rounds: Text, titlerounds: Text) -> None:
+                 rounds: Text, titlerounds: Text, hops: Text) -> None:
         self.__scoretext_1 = scoretext_1
         self.__scoretext_2 = scoretext_2
         self.__rounds = rounds
         self.__title_rounds = titlerounds
+        self.__hops = hops
 
-    def update(self, points_1: int, points_2: int, rounds: int, moves_left: int):
+    def update(self, points_1: int, points_2: int, rounds: int, moves_left):
         """
         Updates score of players
 
@@ -25,7 +26,8 @@ class Scoreboard:
         """
         self.__scoretext_1.text = str(points_1)
         self.__scoretext_2.text = str(points_2)
-        self.__rounds.text = str(rounds)
+        self.__rounds.text = f"{str(rounds)}/10"
+        self.__hops.text = str(int(sqrt(rounds)))
         if moves_left != 1:
             self.__title_rounds.text = str(moves_left - 1)
         else:

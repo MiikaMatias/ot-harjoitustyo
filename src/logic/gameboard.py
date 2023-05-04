@@ -83,7 +83,6 @@ class GameOfLife():
             elif ones <= 1:     # third priority: are there too few allies
                 ret = 0
             else:               # if not, set to alive; get score
-                self.p1_score += 1
                 ret = 1
         elif current == 2:      # same goes here
             if ones > twos:
@@ -94,14 +93,15 @@ class GameOfLife():
             elif twos <= 1:
                 ret = 0
             else:
-                self.p2_score += 1
                 ret = 2
         else:
             if ones == 3 and twos == 3:  # contested empty square?
                 ret = 0
             elif ones == 3:
+                self.p1_score += 1
                 ret = 1
             elif twos == 3:
+                self.p2_score += 1
                 ret = 2
 
         return ret

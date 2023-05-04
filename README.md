@@ -2,7 +2,7 @@
 This game will be a multiplayer version of the titular game! As of this moment it is unfinished.
 
 ## How to play
-Navigate to the game from the menu. Click to create a cell of either color (every second click is blue, every second is red). Press space to go to the next state.
+Navigate to the game from the menu. Each player gets to place three cells, after which the game progresses one state. Points are gained from eating your enemies by outnumbering their cell (+2) or creating a new cell (+1).
 
 ## Python version 
 Use python 3.8.

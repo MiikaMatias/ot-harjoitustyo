@@ -5,8 +5,10 @@ This gameobject is represented by an n by n array GameOfLife instance, and commu
 between the pygame gui and this array.
 """
 
+from math import sqrt
 from logic.gameboard import GameOfLife
 from gameobjects.game.score import Scoreboard
+import pygame as pg
 
 
 class Board():
@@ -20,8 +22,9 @@ class Board():
         self.__scoreboard = score
         self.__tiles = tiles
         self.__logic = game_logic
+
         self.__to_place = 3       # this variable gives the squares left
-        self.__rounds = 10        # represents rounds left
+        self.__rounds = 1         # represents rounds 
 
         self.current_player = 1
         self.size = 10
@@ -104,8 +107,20 @@ class Board():
             self.current_player = 2
         else:
             self.current_player = 1
-            self.__rounds -= 1
-            self.fetch_next()
+            last = pg.time.get_ticks()
+            cooldown = 200
+            todo = int(sqrt(self.__rounds))
+            self.__rounds += 1
+            while todo != 0: 
+                if pg.time.get_ticks() - last >= cooldown:
+                    self.fetch_next()
+                    for tile in self.__tiles:
+                        tile.flip_appearance(tile.file, 1)
+                        tile.draw()
+                    pg.display.update()
+                    last = pg.time.get_ticks()
+                    todo -= 1
+
         self.__to_place = 3
 
     def check_turn_end(self) -> bool:
@@ -121,13 +136,13 @@ class Board():
         else:
             self.__to_place -= 1
 
-        return self.__rounds == 0
+        return self.__rounds == 11
 
     def reset(self):
         self.__logic.reset_board()
         self.__logic.p1_score = 0
         self.__logic.p2_score = 0
-        self.__rounds = 10
+        self.__rounds = 1
         self.__scoreboard.update(self.__logic.p1_score, self.__logic.p2_score,
                                  self.__rounds, self.__to_place)
         self.fetch_next()

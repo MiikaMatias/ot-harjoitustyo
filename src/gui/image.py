@@ -44,7 +44,7 @@ class Image():
 
     def draw(self):
         """
-        Draws the Image in game based on the values of self.rect
+        Draws the Image in game based on the values of self.rect and self.file
         """
         self.rect.center = (self.screen.get_width() * self.col,
                             self.screen.get_height() * self.row)
