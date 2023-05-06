@@ -36,6 +36,9 @@ class GameOfLife():
         self.p1_score = 0
         self.p2_score = 0
 
+        self.current_player = 1
+        self.size = 10
+
         self.gameboard = np.array(
             [np.array([0 for _ in range(col)]) for _ in range(row)])
 
@@ -48,10 +51,10 @@ class GameOfLife():
         """
         Set cell to a specific value, either 2,0 or 1
 
-                    Parameters:
-                            row (int): j coordinate, starts from 1
-                            col (int): i coordinate, starts from 1
-                            state (int): 2,0,1
+            Args:
+                    row (int): j coordinate, starts from 1
+                    col (int): i coordinate, starts from 1
+                    state (int): 2,0,1
         """
         if state in [2, 0, 1]:
             self.gameboard[(row - 1), (col - 1)] = state
@@ -64,7 +67,7 @@ class GameOfLife():
         This function returns the future state of a cell based
         on it's surrounding elements
 
-            Parameters:
+            Args:
                 current: int defining what the current cell is
                 ones: surrounding ones
                 twos: surrounding twos
@@ -73,6 +76,11 @@ class GameOfLife():
                 an integer defining the next state
         """
         ret = 0
+
+        # The formatting here is on the first view quite unclean, but
+        # I think it communicates the rule flow of the game better than
+        # a more clean implementation would; from a dev POV this is also
+        # very easy to modify
 
         if current == 1:
             if twos > ones:     # first priority: do enemies outnumber allies; score to enemy
@@ -110,7 +118,7 @@ class GameOfLife():
         """
         Detects how many 1 and 2 cells are nearby. Returns a tuple
 
-                    Parameters:
+                    Args:
                             j (int): j coordinate, starts from 1
                             i (int): i coordinate, starts from 1
 

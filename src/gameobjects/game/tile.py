@@ -1,5 +1,5 @@
 """
-Represents a single cell in pygame. 
+Represents a single cell in pygame.
 """
 
 import pygame as pg

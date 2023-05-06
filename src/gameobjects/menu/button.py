@@ -5,6 +5,8 @@ import pygame as pg
 from gui.image import Image
 from .text import Text
 
+PATH_TO_FILES = "src/assets/menu_items/main_menu/CasualGameButtonsVol02/PNG/long/"
+
 
 class Button(Image):
     """
@@ -18,10 +20,11 @@ class Button(Image):
     """
 
     def __init__(self, screen, col: float, row: float, scale_x: int,
-                 scale_y: int, file: str, pressed: str, function_when_pressed) -> None:
-        super().__init__(screen, col, row, scale_x, scale_y, file)
+                 scale_y: int, function_when_pressed) -> None:
+        super().__init__(screen, col, row, scale_x, scale_y,
+                         f"{PATH_TO_FILES}CGB02-green_L_btn.png")
 
-        self.pressed_file = pressed
+        self.pressed_file = f"{PATH_TO_FILES}CGB02-blue_L_btn.png"
         self.function = function_when_pressed
 
         # we also define some text for a button

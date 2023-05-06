@@ -257,7 +257,10 @@ class TestGameboard(unittest.TestCase):
                       [0, 0, 0, 0]])
         self.assertEqual(True, np.array_equal(self.gameboard.gameboard, b))
 
-    def test_score(self):
+    def test_score_p1(self):
+        pass
+
+    def test_score_p2(self):
         pass
 
     def test_reset_board(self):

@@ -40,8 +40,9 @@ def coverage_report(ctx):
 @task
 def lint(ctx):
     """
-    Do a pylint check.
+    Do a pylint check. Also runs autopep8 before.
     """
+    ctx.run("autopep8 --in-place --aggressive --recursive src")
     ctx.run("pylint src", pty=True)
 
 @task
