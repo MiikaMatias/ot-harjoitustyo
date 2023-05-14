@@ -1,7 +1,23 @@
-# Installation
+# Guide
+This is an user guide for the project.
 
+## Installation
 
-# How to play
+1. Install the dependencies:
+`poetry install`
+2. Build the project
+`poetry run invoke build`
+3. Run the project
+`poetry run invoke start`
+
+## Command line functionality
+Run tests by running `poetry run invoke coverage`
+
+Generate a report by running `poetry run invoke coverage-report`
+
+Check pylint by running `poetry run invoke lint`
+
+## How to play
 
 The gameplay loop is simple:
 
