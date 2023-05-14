@@ -35,3 +35,6 @@
 ## Week 7
 
 - Added victory screen
+- Polished lint complaints
+- Wrote documentation
+- Added volume database

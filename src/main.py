@@ -106,8 +106,6 @@ def main():
                             elif activation == "settings":
                                 active_scene = o.settings
                             elif activation == "menu":
-                                # This resets score position; it is changed
-                                # after game ends
                                 o.board.reset()
                                 active_scene = o.menu
                             elif activation == "game":

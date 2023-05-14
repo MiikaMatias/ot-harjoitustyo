@@ -9,7 +9,7 @@ from logic.gameboard import GameOfLife
 
 class TestGameboard(unittest.TestCase):
     """
-    Baseline test
+    Baseline test for game logic
     """
 
     def setUp(self):

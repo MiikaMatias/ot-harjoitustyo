@@ -12,4 +12,6 @@
 |03.5| 3 | Added victory screen|
 |04.5| 2 | Modified gamerules|
 |06.5| 8 | Refactored code, implemented settings, cleaned errors; final version code-wise|
-|total|51||
+|07.5| 8 | Added a database for the volume settings, cleaned up lint, refactored code|
+|14.5| 2 | Wrote documentation, polished the project|
+|total|61||
