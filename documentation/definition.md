@@ -2,24 +2,25 @@
 
 ## Purpose of the application
 
-The application is intended to be a multiplayer version of [Conway's Game Of Life](https://playgameoflife.com/), wherein two players will blindly put their 'cells' down on the board, and then gather points based on how many of their cells will survive. The general idea is to have this game be playable on multiple clients – online so that each player plays on their own device – if time constraints allow, but an initial draft will only concern a single client.
-
+The application is intended to be a multiplayer version of [Conway's Game Of Life](https://playgameoflife.com/). The idea was to make a competitive version of the traditional game. 
 ## Users
 
-There is really just a singular user role, which is a generic _player_ role. Further iterations could consider adding a game _host_ role for the player that hosts the server, and sets the rules of the game. 
+There is really just a singular user role, which is a generic _player_ role. Further iterations could consider adding a game _host_ role for the player that hosts the server, and sets the rules of the game. However at this point no special rules are needed. 
 
-## UI draft
+## UI
 
-There are three or four initially planned UI-states:
+There are five UI-states:
 
 ![](https://github.com/MiikaMatias/ot-harjoitustyo/blob/main/documentation/images/outline.png)
 
-1) Menu; connects to main game through game rule configuration screen; connects to options (done)
-2) Game screen (done) | rule configuration screen (done); game rules can be modified in rule config. Different configurations can be saved into a database; rule config connects to the main game and maybe settings (done); game connects to settings and the menu through a game-over event.
-3) Settings (done); includes sound sliders and some other options; maybe credits.
+1) menu: connects to settings and pregame
+2) settings: connects to menu
+3) pre_game: connects to menu and game
+4) game: connects from pre-game to victory
+5) victory: connects to menu
 
 ## Base version
-The player is able to start the game, and configure it's rules. Afterwards, the players will play against each other. Settings may be modified during any point. Game may be quit during any point. Rule presets can be saved. The game mechanics will be nice and the implementation will be slick. 
+Players play according to the rules defined in the [guide document](https://github.com/MiikaMatias/ot-harjoitustyo/blob/main/documentation/guide.md). The player is able to adjust the volume of the game in the settings menu. The best player wins!
 
 ## Further ideas
 
