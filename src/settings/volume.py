@@ -10,12 +10,8 @@ class VolumeObject():
     """Database management object for volume settings; can be expanded to
        include other settings quite easily."""
     
-    # The idea with storing volume into a database is just to gain points;
-    # Really there's no need at all to use a database solution in a project
-    # like this, so I hope this suffices for those points. It would be quite
-    # easy to store anything (leaderboards, gamehistory, game configurations 
-    # if added) into a mere csv or a simpler storage system, but this database
-    # is an alternative solution that will hopefully increase my grade. 
+    # The idea with storing volume into a database is to allow
+    # for scalability in future with more advanced settings. 
 
     def __init__(self, initial_vol_music: int, volume_text: Text):
         """
