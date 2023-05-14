@@ -18,3 +18,6 @@ Use python 3.8.
 
 
 [Time spent on the project](./documentation/hours-spent.md)
+
+
+[Testing](./documentation/testing.md)

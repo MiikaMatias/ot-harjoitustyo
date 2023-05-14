@@ -2,7 +2,7 @@
 
 ## Purpose of the application
 
-The application is intended to be a multiplayer version of [Conway's Game Of Life](https://playgameoflife.com/). The idea was to make a competitive version of the traditional game. 
+The application is intended to be a simple proof of concept for a multiplayer version of [Conway's Game Of Life](https://playgameoflife.com/). The idea was to make a competitive version of the traditional game. 
 ## Users
 
 There is really just a singular user role, which is a generic _player_ role. Further iterations could consider adding a game _host_ role for the player that hosts the server, and sets the rules of the game. However at this point no special rules are needed. 
